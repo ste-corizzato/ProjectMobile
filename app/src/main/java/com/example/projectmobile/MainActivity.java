@@ -14,9 +14,9 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-public class MainActivity<mRequestQueue> extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
+    public RequestQueue mRequestQueue = null;
 
-    RequestQueue mRequestQueue=Volley.newRequestQueue(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +28,14 @@ public class MainActivity<mRequestQueue> extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        final String profilo= " https://ewserver.di.unimi.it/mobicomp/mostri/register.php";
+        Log.d("MainActivity", "onResume");
+
+       /* mRequestQueue=Volley.newRequestQueue(this);
+        final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/register.php";
 
 
         JsonObjectRequest request = new JsonObjectRequest(
-                profilo,
+                url,
                 null,
 
                 new Response.Listener<JSONObject>() {
@@ -50,7 +53,10 @@ public class MainActivity<mRequestQueue> extends AppCompatActivity {
 
 
         mRequestQueue.add(request);
+
+     */
     }
+
 
 
 
