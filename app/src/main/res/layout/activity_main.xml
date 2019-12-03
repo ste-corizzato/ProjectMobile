@@ -6,28 +6,60 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="156dp"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="167dp"
-        android:layout_marginBottom="132dp"
-        android:text="@string/button"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:id="@+id/button_map"
+        android:layout_width="277dp"
+        android:layout_height="98dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="372dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginBottom="261dp"
+        android:text="PLAY!"
+        android:textSize="46sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_leaderboards"
+        android:layout_width="182dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="184dp"
+        android:text="LEADERBOARDS"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button_impostazioni"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_map" />
+
+    <Button
+        android:id="@+id/button_impostazioni"
+        android:layout_width="72dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginBottom="184dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_map"
+        android:text="Button+image"
+        android:icon="@drawable/allegri"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="58dp"
+        android:layout_marginEnd="216dp"
+        android:layout_marginBottom="187dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_map"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars[11]" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
