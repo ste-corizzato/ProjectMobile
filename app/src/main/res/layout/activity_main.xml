@@ -27,39 +27,37 @@
         android:layout_height="59dp"
         android:layout_marginStart="67dp"
         android:layout_marginTop="17dp"
-        android:layout_marginEnd="23dp"
         android:layout_marginBottom="184dp"
         android:text="LEADERBOARDS"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button_impostazioni"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_map" />
 
-    <Button
-        android:id="@+id/button_impostazioni"
-        android:layout_width="72dp"
-        android:layout_height="59dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginBottom="184dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_map"
-        android:text="Button+image"
-        android:icon="@drawable/allegri"/>
-
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="67dp"
         android:layout_marginTop="58dp"
         android:layout_marginEnd="216dp"
         android:layout_marginBottom="187dp"
+        android:contentDescription="@string/account_image"
         app:layout_constraintBottom_toTopOf="@+id/button_map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars[11]" />
+        tools:srcCompat="@android:color/holo_orange_light" />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="77dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginBottom="179dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_map"
+        app:srcCompat="@drawable/impostazioni" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
