@@ -3,9 +3,20 @@ package com.example.projectmobile;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
+public class MainActivity<mRequestQueue> extends AppCompatActivity {
+
+    RequestQueue mRequestQueue=Volley.newRequestQueue(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +24,40 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        final String profilo= " https://ewserver.di.unimi.it/mobicomp/mostri/register.php";
+
+
+        JsonObjectRequest request = new JsonObjectRequest(
+                profilo,
+                null,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Volley", "Correct: " + response.toString());
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Volley", "Error: " + error.toString());
+                    }});
+        Log.d("Volley", "Sending request");
+
+
+        mRequestQueue.add(request);
+    }
+
+
+
+
+
+
+
 
 
 }
