@@ -21,22 +21,18 @@ import org.json.JSONObject;
 public class MainActivity extends AppCompatActivity {
     public RequestQueue mRequestQueue = null;
 
-
+    public String id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.d("MainActivity", "onResume");
-
+    //funzione per ottenere il session_id
+    public void firstRegister(){
         mRequestQueue=Volley.newRequestQueue(this);
         final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/register.php";
-        
+
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST,
                 url,
@@ -70,6 +66,22 @@ public class MainActivity extends AppCompatActivity {
         Log.d("MainActivity", "Sending request");
 
         mRequestQueue.add(request);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d("MainActivity", "onResume");
+        SharedPreferences datiSalvati =
+            getSharedPreferences("salvaDati", 0);
+        id = datiSalvati.getString("session_id", null);
+        if (id==null){
+            firstRegister();
+        }else{
+            Log.d("MainActivity","session id locale: "+id);
+        }
+
     }
 
 
