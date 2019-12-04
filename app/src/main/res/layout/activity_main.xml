@@ -63,11 +63,53 @@
         android:id="@+id/textName"
         android:layout_width="123dp"
         android:layout_height="29dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="58dp"
         android:layout_marginEnd="67dp"
-        android:text="NomeUtente"
+        android:text="SessionID"
+        android:textAlignment="gravity"
+        android:textColor="#000000"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textSessionID"
+        android:layout_width="123dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="67dp"
+        android:text="NomeUtente"
+        android:textAlignment="gravity"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
+
+    <TextView
+        android:id="@+id/textLife"
+        android:layout_width="119dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="21dp"
+        android:text="LIFE"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/textExp"
+        android:layout_width="119dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="66dp"
+        android:text="EXP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textLife"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

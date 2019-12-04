@@ -69,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //funzione per ottenere il img, nome, vita, exp
+    /*public void getProfile(){
+        mRequestQueue=Volley.newRequestQueue(this);
+        final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/getprofile.php";
+    }*/
+
+
     @Override
     protected void onResume() {
         super.onResume();
