@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -70,10 +71,63 @@ public class MainActivity extends AppCompatActivity {
 
 
     //funzione per ottenere il img, nome, vita, exp
-    /*public void getProfile(){
+    public void getProfile(){
         mRequestQueue=Volley.newRequestQueue(this);
         final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/getprofile.php";
-    }*/
+
+        final JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("session_id", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest getProfileRequest = new JsonObjectRequest(
+                Request.Method.POST,
+                url,
+                jsonBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+
+
+                            Log.d("MainActivity", "metodo");
+                            getProfileResponse(response);
+
+
+
+                        Log.d("MainActivity", "Eseguito");
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("MainActivity", "Error: " + error.toString());
+                    }});
+
+
+                mRequestQueue.add(getProfileRequest);
+
+
+
+    }
+
+    public void getProfileResponse(JSONObject response) {
+
+        TextView nome = findViewById(R.id.textName);
+
+        try {
+            nome.setText(response.getString(" username"));
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
 
 
     @Override
@@ -87,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
             firstRegister();
         }else{
             Log.d("MainActivity","session id locale: "+id);
+            getProfile();
         }
 
     }
