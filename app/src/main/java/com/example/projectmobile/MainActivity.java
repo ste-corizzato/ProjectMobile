@@ -73,30 +73,23 @@ public class MainActivity extends AppCompatActivity {
     //funzione per ottenere il img, nome, vita, exp
     public void getProfile(){
         mRequestQueue=Volley.newRequestQueue(this);
-        final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/getprofile.php";
+        final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/getprofile.php?session_id="+id;
 
-        final JSONObject jsonBody = new JSONObject();
+        JSONObject jsonRequest = new JSONObject();
         try {
-            jsonBody.put("session_id", id);
+            jsonRequest.put("session_id",id);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         JsonObjectRequest getProfileRequest = new JsonObjectRequest(
-                Request.Method.POST,
                 url,
-                jsonBody,
+                jsonRequest,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
 
-
-
-                            Log.d("MainActivity", "metodo");
-                            getProfileResponse(response);
-
-
-
-                        Log.d("MainActivity", "Eseguito");
+                        getProfileResponse(response);
+                        Log.d("MainActivity", "Eseguito: "+response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -110,21 +103,33 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
     public void getProfileResponse(JSONObject response) {
 
+
         TextView nome = findViewById(R.id.textName);
+        TextView lp = findViewById(R.id.textLife);
+        TextView exp = findViewById(R.id.textExp);
+
+
 
         try {
-            nome.setText(response.getString(" username"));
-
-
+            nome.setText(response.getString("username"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
+        try {
+            lp.setText(response.getString("lp"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            exp.setText(response.getString("xp"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -141,6 +146,9 @@ public class MainActivity extends AppCompatActivity {
             firstRegister();
         }else{
             Log.d("MainActivity","session id locale: "+id);
+            TextView idtext = findViewById(R.id.textID);
+            idtext.setText(id);
+
             getProfile();
         }
 
