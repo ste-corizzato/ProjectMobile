@@ -98,22 +98,15 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("MainActivity", "Error: " + error.toString());
                     }});
 
-
                 mRequestQueue.add(getProfileRequest);
-
-
-
 
     }
 
     public void getProfileResponse(JSONObject response) {
 
-
         TextView nome = findViewById(R.id.textName);
         TextView lp = findViewById(R.id.textLife);
         TextView exp = findViewById(R.id.textExp);
-
-
 
         try {
             nome.setText(response.getString("username"));
@@ -131,9 +124,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
     }
-
 
     @Override
     protected void onResume() {
