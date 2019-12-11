@@ -1,12 +1,17 @@
 package com.example.projectmobile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -19,16 +24,45 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     public RequestQueue mRequestQueue = null;
 
     public String id;
+    public String nome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        ImageButton button_setting = findViewById(R.id.button_imp);
+        Button modifica = findViewById(R.id.Modifica);
+
+        button_setting.setOnClickListener(this);
+        modifica.setOnClickListener(this);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.button_imp:
+
+                addFragment(new fragment_profile(), true, "fragment.profile");
+                TextView nometv= findViewById(R.id.text_nome);
+                nometv.setText(nome);
+
+
+                break;
+
+
+        }
+    }
+
+
+
+
     //funzione per ottenere il session_id
     public void firstRegister(){
         mRequestQueue=Volley.newRequestQueue(this);
@@ -109,14 +143,16 @@ public class MainActivity extends AppCompatActivity {
     public void getProfileResponse(JSONObject response) {
 
 
-        TextView nome = findViewById(R.id.textName);
+        TextView nometv = findViewById(R.id.textName);
         TextView lp = findViewById(R.id.textLife);
         TextView exp = findViewById(R.id.textExp);
 
 
 
         try {
-            nome.setText(response.getString("username"));
+            nometv.setText(response.getString("username"));
+            nome=nometv.getText().toString();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -153,10 +189,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public void addFragment (Fragment fragment, boolean addToBackStack, String tag){
+        FragmentManager fragmentManager= getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container, fragment, tag);
+        fragmentTransaction.commit();
 
-
-
-
+    }
 
 
 
