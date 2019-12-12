@@ -27,16 +27,21 @@
         android:id="@+id/indietro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
         android:layout_marginTop="56dp"
+        android:layout_marginBottom="447dp"
         android:text="Indietro"
-        app:layout_constraintTop_toBottomOf="@+id/text_nome"
-        tools:layout_editor_absoluteX="65dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_nome" />
 
     <Button
         android:id="@+id/Modifica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="87dp"
+        android:layout_marginBottom="451dp"
         android:text="Ok"
-        tools:layout_editor_absoluteX="236dp"
-        tools:layout_editor_absoluteY="308dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
