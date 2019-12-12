@@ -24,11 +24,15 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
+    public static final String BUNDLE_KEY_TEXT = "";
     public RequestQueue mRequestQueue = null;
 
     public String id;
     public String nome;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,10 +41,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         ImageButton button_setting = findViewById(R.id.button_imp);
-        Button modifica = findViewById(R.id.Modifica);
+        //Button modifica = findViewById(R.id.Modifica);
+
 
         button_setting.setOnClickListener(this);
-        modifica.setOnClickListener(this);
+        //modifica.setOnClickListener(this);
+
+
+
+
     }
 
     @Override
@@ -49,16 +58,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.button_imp:
 
-                addFragment(new fragment_profile(), true, "fragment.profile");
-                TextView nometv= findViewById(R.id.text_nome);
-                nometv.setText(nome);
+                fragment_profile newFragment = new fragment_profile();
+                Bundle args = new Bundle();
+                args.putString(BUNDLE_KEY_TEXT, nome);
+                newFragment.setArguments(args);
+
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+
+                transaction.replace(R.id.fragment_container, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+
+
+
 
 
                 break;
 
 
+
         }
+
     }
+
+
+
 
 
 
@@ -189,15 +215,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
     }
-    public void addFragment (Fragment fragment, boolean addToBackStack, String tag){
+    /*public void addFragment (Fragment fragment, boolean addToBackStack, String tag){
         FragmentManager fragmentManager= getSupportFragmentManager();
         FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, fragment, tag);
         fragmentTransaction.commit();
 
     }
-
-
+    */
 
 
 
