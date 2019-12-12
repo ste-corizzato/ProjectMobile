@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    //funzione per ottenere il session_id
+    //funzione per ottenere il session_idd
     public void firstRegister(){
         mRequestQueue=Volley.newRequestQueue(this);
         final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/register.php";
