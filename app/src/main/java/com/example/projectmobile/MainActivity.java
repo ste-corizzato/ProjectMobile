@@ -30,8 +30,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     public String id;
     public String nome;
-
-
+    ImageButton button_setting;
+    Button play;
+    Button classifica;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,17 +41,18 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         setContentView(R.layout.activity_main);
 
 
-        ImageButton button_setting = findViewById(R.id.button_imp);
+        button_setting = findViewById(R.id.button_imp);
         //Button modifica = findViewById(R.id.Modifica);
 
 
         button_setting.setOnClickListener(this);
         //modifica.setOnClickListener(this);
 
-
-
-
+        play = findViewById(R.id.button_map);
+        classifica = findViewById(R.id.button_leaderboards);
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -69,6 +71,9 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 transaction.replace(R.id.fragment_container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+                play.setVisibility(v.INVISIBLE);
+                classifica.setVisibility(v.INVISIBLE);
+                button_setting.setVisibility(v.INVISIBLE);
 
 
 

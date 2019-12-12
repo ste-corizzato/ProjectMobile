@@ -6,6 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="303dp"
+        android:layout_height="527dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="31dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLife">
+
+    </FrameLayout>
+
     <Button
         android:id="@+id/button_map"
         android:layout_width="277dp"
@@ -25,13 +41,26 @@
         android:id="@+id/button_leaderboards"
         android:layout_width="182dp"
         android:layout_height="59dp"
-        android:layout_marginStart="67dp"
+        android:layout_marginStart="61dp"
         android:layout_marginTop="17dp"
-        android:layout_marginBottom="184dp"
+        android:layout_marginBottom="179dp"
         android:text="LEADERBOARDS"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_map" />
+
+    <ImageButton
+        android:id="@+id/button_imp"
+        android:layout_width="77dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="17dp"
+        android:layout_marginEnd="67dp"
+        android:layout_marginBottom="179dp"
+        android:onClick="onClick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_map"
+        app:srcCompat="@drawable/impostazioni" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -46,19 +75,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:color/holo_orange_light"
         tools:visibility="visible" />
-
-    <ImageButton
-        android:id="@+id/button_imp"
-        android:layout_width="77dp"
-        android:layout_height="64dp"
-        android:layout_marginTop="17dp"
-        android:layout_marginEnd="67dp"
-        android:layout_marginBottom="179dp"
-        android:onClick="onClick"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_map"
-        app:srcCompat="@drawable/impostazioni" />
 
     <TextView
         android:id="@+id/textID"
@@ -112,19 +128,4 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
-    <FrameLayout
-        android:id="@+id/fragment_container"
-        android:layout_width="282dp"
-        android:layout_height="475dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.246"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.839">
-
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
