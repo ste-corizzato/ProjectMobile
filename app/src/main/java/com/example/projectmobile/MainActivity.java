@@ -28,11 +28,12 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     public static final String BUNDLE_KEY_TEXT = "";
     public RequestQueue mRequestQueue = null;
 
-    public String id;
+    //public String id;
     public String nome;
     ImageButton button_setting;
     Button play;
     Button classifica;
+    Model myModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         play = findViewById(R.id.button_map);
         classifica = findViewById(R.id.button_leaderboards);
+
+        myModel=Model.getInstance();
     }
 
 
@@ -59,6 +62,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         switch (v.getId()) {
 
             case R.id.button_imp:
+
 
                 fragment_profile newFragment = new fragment_profile();
                 Bundle args = new Bundle();
@@ -87,10 +91,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
 
     }
-
-
-
-
 
 
 
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("session_id",id);
+            jsonRequest.put("session_id",myModel.getSessionID());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -208,13 +208,14 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         Log.d("MainActivity", "onResume");
         SharedPreferences datiSalvati =
             getSharedPreferences("salvaDati", 0);
-        id = datiSalvati.getString("session_id", null);
-        if (id==null){
+        myModel.setSessionID(datiSalvati.getString("session_id", null));
+
+        if (myModel.getSessionID()==null){
             firstRegister();
         }else{
-            Log.d("MainActivity","session id locale: "+id);
+            Log.d("MainActivity","session id locale: "+myModel.getSessionID());
             TextView idtext = findViewById(R.id.textID);
-            idtext.setText(id);
+            idtext.setText(myModel.getSessionID());
 
             getProfile();
         }
