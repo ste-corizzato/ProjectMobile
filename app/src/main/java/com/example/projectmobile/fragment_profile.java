@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,22 +25,25 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class fragment_profile extends Fragment {
+public class fragment_profile extends Fragment implements View.OnClickListener {
 
     public RequestQueue mRequestQueue = null;
     String username_text= null;
     String img =null;
+    Button modifica;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_fragment_profile, container, false);
+        View w= inflater.inflate(R.layout.fragment_fragment_profile, container, false);
+
+        modifica= (Button) w.findViewById(R.id.Modifica);
+        modifica.setOnClickListener(this);
 
 
-
+        return w;
 
     }
-
 
 
     @Override
@@ -50,14 +54,29 @@ public class fragment_profile extends Fragment {
         tv.setText(text);
     }
 
-    public void onClick_modifica(View v) {
-        Log.d("fragment_profile", "modifica");
-        modifica();
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.Modifica:
+
+                Log.d("fragment_profile", "modifica");
+                modifica();
+
+                break;
+
+        }
+
     }
 
 
+
+
+
+
+
     public void modifica(){
-            mRequestQueue= Volley.newRequestQueue(this);
+            mRequestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
             final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/setprofile.php";
 
             TextView tv = getView().findViewById(R.id.text_nome);
@@ -82,7 +101,7 @@ public class fragment_profile extends Fragment {
                         @Override
                         public void onResponse(JSONObject response) {
 
-                            setprofile(response);
+                            Model.getInstance().setUsername(username_text);
                             Log.d("MainActivity", "Eseguito: "+response);
                         }
                     },
@@ -99,15 +118,6 @@ public class fragment_profile extends Fragment {
 
 
         }
-
-        public void setprofile(JSONObject response){
-
-
-        }
-
-
-
-
 
 
 

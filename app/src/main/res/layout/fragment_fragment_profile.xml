@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="88dp"
         android:layout_marginBottom="209dp"
-        android:onClick="onClick_modifica"
+        android:onClick="onClick"
         android:text="Ok"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
