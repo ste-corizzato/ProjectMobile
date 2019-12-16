@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".home">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button_map"
+            android:layout_width="277dp"
+            android:layout_height="98dp"
+            android:layout_marginStart="67dp"
+            android:layout_marginTop="372dp"
+            android:layout_marginEnd="67dp"
+            android:layout_marginBottom="261dp"
+            android:text="PLAY!"
+            android:textSize="46sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_leaderboards"
+            android:layout_width="182dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="61dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="179dp"
+            android:text="LEADERBOARDS"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_map" />
+
+        <ImageButton
+            android:id="@+id/button_imp"
+            android:layout_width="77dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="67dp"
+            android:layout_marginBottom="179dp"
+            android:onClick="onClick"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_leaderboards"
+            app:layout_constraintTop_toBottomOf="@+id/button_map"
+            app:srcCompat="@drawable/impostazioni" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

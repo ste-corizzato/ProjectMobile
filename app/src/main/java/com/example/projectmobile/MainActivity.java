@@ -55,7 +55,19 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         myModel=Model.getInstance();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+        home fragment_home = new home();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+
+        transaction.replace(R.id.fragment_home, fragment_home);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -81,15 +93,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 button_setting.setVisibility(v.INVISIBLE);
 
 
-                /*if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-                    super.onBackPressed();
-                    play.setVisibility(v.VISIBLE);
-                    classifica.setVisibility(v.VISIBLE);
-                    button_setting.setVisibility(v.VISIBLE);
-                } else {
-                    getSupportFragmentManager().popBackStack();
-                }
-                */
+
 
 
 
