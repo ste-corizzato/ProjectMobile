@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
 
         //button_setting.setOnClickListener(this);
-        //modifica.setOnClickListener(this);
+        //modifica.setOnClickListener(this);sadfg
 
         play = findViewById(R.id.button_map);
         classifica = findViewById(R.id.button_leaderboards);
