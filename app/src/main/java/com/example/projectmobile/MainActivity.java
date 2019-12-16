@@ -43,11 +43,8 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
 
         button_setting = findViewById(R.id.button_imp);
-        //Button modifica = findViewById(R.id.Modifica);
-
 
         //button_setting.setOnClickListener(this);
-        //modifica.setOnClickListener(this);sadfg
 
         play = findViewById(R.id.button_map);
         classifica = findViewById(R.id.button_leaderboards);
@@ -74,29 +71,21 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         switch (v.getId()) {
 
             case R.id.button_imp:
-
-
                 fragment_profile newFragment = new fragment_profile();
                 Bundle args = new Bundle();
-                args.putString(BUNDLE_KEY_TEXT, nome);
+                args.putString(BUNDLE_KEY_TEXT,nome);
                 newFragment.setArguments(args);
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-
                 transaction.replace(R.id.fragment_container, newFragment);
                 transaction.addToBackStack(null);
+
                 transaction.commit();
-
-                play.setVisibility(v.INVISIBLE);
-                classifica.setVisibility(v.INVISIBLE);
-                button_setting.setVisibility(v.INVISIBLE);
-
+                Log.d("MyMainActivity", "impostazioni funziona");
 
 
                 break;
-
-
 
         }
 
@@ -231,16 +220,5 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
 
     }
-    /*public void addFragment (Fragment fragment, boolean addToBackStack, String tag){
-        FragmentManager fragmentManager= getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, fragment, tag);
-        fragmentTransaction.commit();
-
-    }
-    */
-
-
-
 
 }

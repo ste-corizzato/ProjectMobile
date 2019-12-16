@@ -38,21 +38,19 @@ public class home extends Fragment {
         return w;
 
     }
-    public void onClick(View view) {
+    /*public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_imp:
 
                 Log.d("fragment_profile", "impostazioni");
 
+
                 break;
 
             case R.id.indietro:
 
-
-
-
         }
 
-    }
+    }*/
 
 }

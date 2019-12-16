@@ -29,14 +29,15 @@ import org.json.JSONObject;
 public class fragment_profile extends Fragment implements View.OnClickListener {
 
     public RequestQueue mRequestQueue = null;
-    String username_text= null;
-    String img =null;
+    String username_text = null;
+    String img = null;
     Button modifica;
     Button indietro;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View w= inflater.inflate(R.layout.fragment_fragment_profile, container, false);
 
         modifica= (Button) w.findViewById(R.id.Modifica);;
@@ -62,7 +63,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
+        /*switch (view.getId()) {
             case R.id.Modifica:
 
                 Log.d("fragment_profile", "modifica");
@@ -77,16 +78,13 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
 
 
-        }
+        }*/
 
     }
 
 
 
-
-
-
-    public void modifica(){
+   /* public void modifica(){
             mRequestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
             final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/setprofile.php";
 
@@ -126,15 +124,11 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             mRequestQueue.add(getProfileRequest);
 
 
+*/
+
+    }
 
 
-        }
-
-
-
-
-
-}
 
 
 
