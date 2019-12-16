@@ -63,6 +63,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
                 Log.d("fragment_profile", "modifica");
                 modifica();
+                TextView tv = getActivity().findViewById(R.id.textName);
+                tv.setText(username_text);
 
                 break;
 
