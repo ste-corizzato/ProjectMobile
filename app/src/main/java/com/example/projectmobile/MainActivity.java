@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         //Button modifica = findViewById(R.id.Modifica);
 
 
-        button_setting.setOnClickListener(this);
+        //button_setting.setOnClickListener(this);
         //modifica.setOnClickListener(this);
 
         play = findViewById(R.id.button_map);
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 
-        transaction.replace(R.id.fragment_home, fragment_home);
+        transaction.replace(R.id.fragment_container, fragment_home);
         transaction.addToBackStack(null);
         transaction.commit();
 
@@ -91,10 +91,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 play.setVisibility(v.INVISIBLE);
                 classifica.setVisibility(v.INVISIBLE);
                 button_setting.setVisibility(v.INVISIBLE);
-
-
-
-
 
 
 
