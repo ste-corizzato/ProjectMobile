@@ -75,11 +75,21 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 transaction.replace(R.id.fragment_container, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
                 play.setVisibility(v.INVISIBLE);
                 classifica.setVisibility(v.INVISIBLE);
                 button_setting.setVisibility(v.INVISIBLE);
 
 
+                /*if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
+                    super.onBackPressed();
+                    play.setVisibility(v.VISIBLE);
+                    classifica.setVisibility(v.VISIBLE);
+                    button_setting.setVisibility(v.VISIBLE);
+                } else {
+                    getSupportFragmentManager().popBackStack();
+                }
+                */
 
 
 

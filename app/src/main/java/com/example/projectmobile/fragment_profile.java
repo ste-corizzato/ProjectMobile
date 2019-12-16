@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,7 +38,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View w= inflater.inflate(R.layout.fragment_fragment_profile, container, false);
 
-        modifica= (Button) w.findViewById(R.id.Modifica);
+        modifica= (Button) w.findViewById(R.id.Modifica);;
         modifica.setOnClickListener(this);
 
 
@@ -65,10 +66,14 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
                 break;
 
+            case R.id.indietro:
+
+
+
+
         }
 
     }
-
 
 
 
@@ -118,6 +123,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
 
         }
+
+
 
 
 
