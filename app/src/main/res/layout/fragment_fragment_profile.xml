@@ -29,6 +29,7 @@
         android:layout_marginStart="87dp"
         android:layout_marginEnd="42dp"
         android:layout_marginBottom="209dp"
+        android:onClick="onClick"
         android:text="Indietro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Modifica"

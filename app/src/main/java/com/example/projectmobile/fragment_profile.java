@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,6 +35,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     Button modifica;
     Button indietro;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -51,7 +53,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -60,10 +61,9 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         tv.setText(text);
     }
 
-
     @Override
     public void onClick(View view) {
-        /*switch (view.getId()) {
+        switch (view.getId()) {
             case R.id.Modifica:
 
                 Log.d("fragment_profile", "modifica");
@@ -74,17 +74,24 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.indietro:
+               Log.d("fragment_profile", "indietro");
+                home newFragment2 = new home();
+
+                FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
+
+                transaction2.replace(R.id.fragment_container, newFragment2);
+                transaction2.addToBackStack(null);
+
+                transaction2.commit();
+                Log.d("MyMainActivity", "indietro funziona");
 
 
-
-
-        }*/
+        }
 
     }
 
 
-
-   /* public void modifica(){
+    public void modifica(){
             mRequestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
             final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/setprofile.php";
 
@@ -124,9 +131,11 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             mRequestQueue.add(getProfileRequest);
 
 
-*/
+
 
     }
+
+}
 
 
 

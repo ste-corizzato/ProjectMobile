@@ -31,21 +31,21 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     //public String id;
     public String nome;
     ImageButton button_setting;
+    //Button button_indietro;
     Button play;
     Button classifica;
     Model myModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        home fragment_home = new home();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_home).commit();
 
 
         button_setting = findViewById(R.id.button_imp);
-
-        //button_setting.setOnClickListener(this);
-
+        //button_indietro = findViewById(R.id.indietro);
         play = findViewById(R.id.button_map);
         classifica = findViewById(R.id.button_leaderboards);
 
@@ -56,14 +56,19 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     protected void onStart() {
         super.onStart();
 
-        home fragment_home = new home();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+    }
 
-        transaction.replace(R.id.fragment_container, fragment_home);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    public void onButtonTapped(View v) {
+        fragment_profile newFragment2 = new fragment_profile();
 
+        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+
+        transaction2.replace(R.id.fragment_container, newFragment2);
+        transaction2.addToBackStack(null);
+
+        transaction2.commit();
+        Log.d("MyMainActivity", "indietro funziona");
     }
 
     @Override
@@ -87,11 +92,23 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
                 break;
 
+            case R.id.indietro:
+
+                /*Log.d("MainActivity", "ciao");
+                fragment_profile newFragment2 = new fragment_profile();
+
+                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+
+                transaction2.replace(R.id.fragment_container, newFragment2);
+                transaction2.addToBackStack(null);
+
+                transaction2.commit();
+                Log.d("MyMainActivity", "indietro funziona");
+
+                break;*/
         }
 
     }
-
-
 
     //funzione per ottenere il session_idd
     public void firstRegister(){
@@ -132,7 +149,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         mRequestQueue.add(request);
     }
-
 
     //funzione per ottenere il img, nome, vita, exp
     public void getProfile(){
@@ -200,7 +216,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -220,5 +235,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
 
     }
+
+
 
 }
