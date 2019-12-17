@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,14 +30,16 @@ import org.json.JSONObject;
 public class fragment_profile extends Fragment implements View.OnClickListener {
 
     public RequestQueue mRequestQueue = null;
-    String username_text= null;
-    String img =null;
+    String username_text = null;
+    String img = null;
     Button modifica;
     Button indietro;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View w= inflater.inflate(R.layout.fragment_fragment_profile, container, false);
 
         modifica= (Button) w.findViewById(R.id.Modifica);;
@@ -46,19 +49,21 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         indietro.setOnClickListener(this);
 
 
+
         return w;
 
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
-        String text = getArguments().getString(MainActivity.BUNDLE_KEY_TEXT);
+
+        String text =Model.getInstance().getUsername();
         TextView tv = getActivity().findViewById(R.id.text_nome);
         tv.setText(text);
-    }
 
+
+    }
 
     @Override
     public void onClick(View view) {
@@ -73,17 +78,21 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.indietro:
+               Log.d("fragment_profile", "indietro");
+                home newFragment2 = new home();
 
+                FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
 
+                transaction2.replace(R.id.fragment_container, newFragment2);
+                transaction2.addToBackStack(null);
+
+                transaction2.commit();
+                Log.d("MyMainActivity", "indietro funziona");
 
 
         }
 
     }
-
-
-
-
 
 
     public void modifica(){
@@ -128,13 +137,11 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
 
 
-        }
-
-
-
-
+    }
 
 }
+
+
 
 
 

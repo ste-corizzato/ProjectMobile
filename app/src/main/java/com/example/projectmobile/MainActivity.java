@@ -31,24 +31,21 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     //public String id;
     public String nome;
     ImageButton button_setting;
+    //Button button_indietro;
     Button play;
     Button classifica;
     Model myModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        home fragment_home = new home();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_home).commit();
 
 
         button_setting = findViewById(R.id.button_imp);
-        //Button modifica = findViewById(R.id.Modifica);
-
-
-        button_setting.setOnClickListener(this);
-        //modifica.setOnClickListener(this);
-
+        //button_indietro = findViewById(R.id.indietro);
         play = findViewById(R.id.button_map);
         classifica = findViewById(R.id.button_leaderboards);
 
@@ -59,14 +56,19 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     protected void onStart() {
         super.onStart();
 
-        home fragment_home = new home();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
+    }
 
-        transaction.replace(R.id.fragment_home, fragment_home);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    public void onButtonTapped(View v) {
+        fragment_profile newFragment2 = new fragment_profile();
 
+        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+
+        transaction2.replace(R.id.fragment_container, newFragment2);
+        transaction2.addToBackStack(null);
+
+        transaction2.commit();
+        Log.d("MyMainActivity", "indietro funziona");
     }
 
     @Override
@@ -74,39 +76,39 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         switch (v.getId()) {
 
             case R.id.button_imp:
-
-
                 fragment_profile newFragment = new fragment_profile();
                 Bundle args = new Bundle();
-                args.putString(BUNDLE_KEY_TEXT, nome);
+                args.putString(BUNDLE_KEY_TEXT,nome);
                 newFragment.setArguments(args);
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-
                 transaction.replace(R.id.fragment_container, newFragment);
                 transaction.addToBackStack(null);
+
                 transaction.commit();
-
-                play.setVisibility(v.INVISIBLE);
-                classifica.setVisibility(v.INVISIBLE);
-                button_setting.setVisibility(v.INVISIBLE);
-
-
-
-
-
+                Log.d("MyMainActivity", "impostazioni funziona");
 
 
                 break;
 
+            case R.id.indietro:
 
+                /*Log.d("MainActivity", "ciao");
+                fragment_profile newFragment2 = new fragment_profile();
 
+                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+
+                transaction2.replace(R.id.fragment_container, newFragment2);
+                transaction2.addToBackStack(null);
+
+                transaction2.commit();
+                Log.d("MyMainActivity", "indietro funziona");
+
+                break;*/
         }
 
     }
-
-
 
     //funzione per ottenere il session_idd
     public void firstRegister(){
@@ -147,7 +149,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
         mRequestQueue.add(request);
     }
-
 
     //funzione per ottenere il img, nome, vita, exp
     public void getProfile(){
@@ -215,7 +216,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -235,15 +235,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         }
 
     }
-    /*public void addFragment (Fragment fragment, boolean addToBackStack, String tag){
-        FragmentManager fragmentManager= getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction= fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, fragment, tag);
-        fragmentTransaction.commit();
-
-    }
-    */
-
 
 
 
