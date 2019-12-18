@@ -34,7 +34,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     String img = null;
     Button modifica;
     Button indietro;
-
+//
 
     @Nullable
     @Override
