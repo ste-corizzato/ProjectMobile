@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         mRequestQueue.add(request);
     }
 
-    //funzione per ottenere il img, nome, vita, exp
+    //funzione per ottenere il img, nome, vita, exp  ok
     public void getProfile(){
         mRequestQueue=Volley.newRequestQueue(this);
         final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/getprofile.php";
