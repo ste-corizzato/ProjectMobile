@@ -10,13 +10,12 @@
         android:id="@+id/text_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="455dp"
-        android:layout_marginEnd="88dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="480dp"
         android:backgroundTint="#009688"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/Modifica"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,10 +23,10 @@
         android:id="@+id/Modifica"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="88dp"
-        android:layout_marginBottom="209dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="260dp"
         android:onClick="onClick"
-        android:text="Ok"
+        android:text="SAVE"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

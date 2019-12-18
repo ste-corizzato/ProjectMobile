@@ -53,7 +53,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
-
+        Log.d("fragment_profile","nome utente");
         String text =Model.getInstance().getUsername();
         TextView tv = getActivity().findViewById(R.id.text_nome);
         tv.setText(text);

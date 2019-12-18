@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     public static final String BUNDLE_KEY_TEXT = "";
     public RequestQueue mRequestQueue = null;
 
-    //public String id;
+
     public String nome;
     ImageButton button_setting;
-    //Button button_indietro;
+
     Button play;
     Button classifica;
     Model myModel;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         home fragment_home = new home();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_home).commit();
@@ -59,17 +60,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
     }
 
-    public void onButtonTapped(View v) {
-        fragment_profile newFragment2 = new fragment_profile();
-
-        FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-
-        transaction2.replace(R.id.fragment_container, newFragment2);
-        transaction2.addToBackStack(null);
-
-        transaction2.commit();
-        Log.d("MyMainActivity", "indietro funziona");
-    }
 
     @Override
     public void onClick(View v) {
