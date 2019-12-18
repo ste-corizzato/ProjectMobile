@@ -33,8 +33,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     String username_text = null;
     String img = null;
     Button modifica;
-    Button indietro;
-//
+
+
 
     @Nullable
     @Override
@@ -44,10 +44,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
         modifica= (Button) w.findViewById(R.id.Modifica);;
         modifica.setOnClickListener(this);
-
-        indietro= (Button) w.findViewById(R.id.indietro);
-        indietro.setOnClickListener(this);
-
 
 
         return w;
@@ -75,10 +71,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 TextView tv = getActivity().findViewById(R.id.textName);
                 tv.setText(username_text);
 
-                break;
-
-            case R.id.indietro:
-               Log.d("fragment_profile", "indietro");
+                Log.d("fragment_profile", "indietro");
                 home newFragment2 = new home();
 
                 FragmentTransaction transaction2 = getFragmentManager().beginTransaction();
@@ -88,6 +81,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
                 transaction2.commit();
                 Log.d("MyMainActivity", "indietro funziona");
+                break;
+
 
 
         }

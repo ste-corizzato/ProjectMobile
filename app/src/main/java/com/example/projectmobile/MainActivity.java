@@ -92,20 +92,6 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
 
                 break;
 
-            case R.id.indietro:
-
-                /*Log.d("MainActivity", "ciao");
-                fragment_profile newFragment2 = new fragment_profile();
-
-                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-
-                transaction2.replace(R.id.fragment_container, newFragment2);
-                transaction2.addToBackStack(null);
-
-                transaction2.commit();
-                Log.d("MyMainActivity", "indietro funziona");
-
-                break;*/
         }
 
     }
