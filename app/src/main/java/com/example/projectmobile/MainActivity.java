@@ -24,7 +24,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity  implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
     public static final String BUNDLE_KEY_TEXT = "";
     public RequestQueue mRequestQueue = null;
 
@@ -45,10 +45,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_home).commit();
 
 
-        button_setting = findViewById(R.id.button_imp);
-        //button_indietro = findViewById(R.id.indietro);
-        play = findViewById(R.id.button_map);
-        classifica = findViewById(R.id.button_leaderboards);
+
 
         myModel=Model.getInstance();
     }
@@ -61,30 +58,7 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
 
-            case R.id.button_imp:
-                fragment_profile newFragment = new fragment_profile();
-                Bundle args = new Bundle();
-                args.putString(BUNDLE_KEY_TEXT,nome);
-                newFragment.setArguments(args);
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
-                transaction.replace(R.id.fragment_container, newFragment);
-                transaction.addToBackStack(null);
-
-                transaction.commit();
-                Log.d("MyMainActivity", "impostazioni funziona");
-
-
-                break;
-
-        }
-
-    }
 
     //funzione per ottenere il session_idd
     public void firstRegister(){
