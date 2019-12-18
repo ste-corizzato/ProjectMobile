@@ -1,6 +1,7 @@
 package com.example.projectmobile;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -59,7 +60,11 @@ public class home extends Fragment implements View.OnClickListener {
                 Log.d("MyMainActivity", "impostazioni funziona");
 
                 break;
+            case R.id.button_leaderboards:
+                Intent intent =new Intent(getActivity(),Leaderboards.class);
+                startActivity(intent);
 
+                break;
         }
     }
 }

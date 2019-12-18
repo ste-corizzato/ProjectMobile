@@ -44,16 +44,12 @@ public class MainActivity extends AppCompatActivity {
         home fragment_home = new home();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_home).commit();
 
-
-
-
         myModel=Model.getInstance();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
 
     }
 
