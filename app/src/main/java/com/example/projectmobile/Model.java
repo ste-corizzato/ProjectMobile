@@ -1,30 +1,48 @@
 package com.example.projectmobile;
 
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class Model {
         private static Model instance = null;
-        private Model() {}
+        private Model() {
+
+
+        }
+
+    public void populate(JSONObject serverResponse) {
+        Log.d("Leaderboards", "populate model");
+        try {
+            JSONArray playersJSON = serverResponse.getJSONArray("ranking");
+            for (int i = 0; i < playersJSON.length(); i++) {
+                JSONObject playerJSON = playersJSON.getJSONObject(i);
+                Player player = new Player(playerJSON);
+                PlayersList.add(player);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
         public static synchronized Model getInstance() {
             if (instance == null) {
                 instance = new Model();
             }
             return instance;
         }
+
+
         private String sessionID;
         private String username;
-        private ArrayList<String> player = new ArrayList<>();
+        private ArrayList<Player> PlayersList = new ArrayList<>();
 
 
-        //dati provvisori
-        public void initWithFakeData() {
-            player.add("Andrea");
-            player.add("Bruna");
-            player.add("Carlo");
-            player.add("sadfsra");
-            player.add("esra");
-            player.add("jyhtrg");
-        }
+
 
 
 
@@ -44,11 +62,15 @@ public class Model {
         this.username = username;
     }
 
-    public String get(int index) {
-        return player.get(index);
+    public ArrayList<Player> getPlayerList() {
+        return PlayersList;
+    }
+
+    public Player get(int index) {
+        return PlayersList.get(index);
     }
     public int getSize() {
-        return player.size();
+        return PlayersList.size();
     }
 
 }

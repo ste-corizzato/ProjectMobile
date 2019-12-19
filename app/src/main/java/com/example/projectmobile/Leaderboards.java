@@ -25,7 +25,7 @@ public class Leaderboards extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboards);
-        Model.getInstance().initWithFakeData();
+
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         MyAdapter adapter = new MyAdapter(this);
@@ -53,9 +53,13 @@ public class Leaderboards extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Model.getInstance().populate(response);
+                        lista(response);
                         Log.d("Leaderboards", "Eseguito: "+response);
 
                     }
+
+
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -71,6 +75,13 @@ public class Leaderboards extends AppCompatActivity {
 
     }
 
-  
+    private void lista(JSONObject response) {
+
+
+
+
+    }
+
+
 }
 

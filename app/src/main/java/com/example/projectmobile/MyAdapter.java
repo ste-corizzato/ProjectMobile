@@ -26,7 +26,7 @@ public class MyAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String text = Model.getInstance().get(position);
+        Player text = Model.getInstance().get(position);
         holder.setText(text);
         }
 
