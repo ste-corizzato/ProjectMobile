@@ -1,8 +1,6 @@
 package com.example.projectmobile;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,30 +15,28 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Leaderboards extends AppCompatActivity {
-
+public class Player_detail extends AppCompatActivity {
     public RequestQueue mRequestQueue = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leaderboards);
+        setContentView(R.layout.activity_player_detail);
+
+        richiesta();
+
+    }
 
 
+    private void richiesta() {
 
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        MyAdapter adapter = new MyAdapter(this, this,Model.getInstance().getPlayerList());
-        recyclerView.setAdapter(adapter);
-
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        final String url = " https://ewserver.di.unimi.it/mobicomp/mostri/ranking.php";
+        mRequestQueue= Volley.newRequestQueue(getApplicationContext());
+        final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/ranking.php";
 
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("session_id", Model.getInstance().getSessionID());
+            jsonRequest.put("session_id",Model.getInstance().getSessionID());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -52,9 +48,10 @@ public class Leaderboards extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         Model.getInstance().populate(response);
-                        Log.d("Leaderboards", "Eseguito: " + response);
+                        getPlayerResponse(response);
+
+                        Log.d("Player_detail", "Eseguito: "+response);
 
                     }
 
@@ -63,15 +60,19 @@ public class Leaderboards extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Leaderboards", "Error: " + error.toString());
-                    }
-                });
+                        Log.d("Player_detail", "Error: " + error.toString());
+                    }});
 
 
         mRequestQueue.add(getProfileRequest);
 
+
+
+
+    }
+
+    private void getPlayerResponse(JSONObject response) {
     }
 
 
 }
-

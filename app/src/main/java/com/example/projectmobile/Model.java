@@ -28,7 +28,11 @@ public class Model {
             e.printStackTrace();
         }
 
+
+
     }
+
+
         public static synchronized Model getInstance() {
             if (instance == null) {
                 instance = new Model();

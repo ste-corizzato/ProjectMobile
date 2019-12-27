@@ -25,7 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String BUNDLE_KEY_TEXT = "";
+
     public RequestQueue mRequestQueue = null;
 
 
@@ -45,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_home).commit();
 
         myModel=Model.getInstance();
+
+
+
+
     }
 
     @Override
