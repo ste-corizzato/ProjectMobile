@@ -48,7 +48,7 @@ public class Leaderboards extends AppCompatActivity {
         JsonObjectRequest getProfileRequest = new JsonObjectRequest(
                 url,
                 jsonRequest,
-
+//
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
