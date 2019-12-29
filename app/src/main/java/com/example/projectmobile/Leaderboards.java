@@ -36,7 +36,7 @@ public class Leaderboards extends AppCompatActivity {
 
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
 
-        final String url = " https://ewserver.di.unimi.it/mobicomp/mostri/ranking.php";
+        final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/ranking.php";
 
         JSONObject jsonRequest = new JSONObject();
         try {

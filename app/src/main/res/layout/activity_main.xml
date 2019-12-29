@@ -13,8 +13,10 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
     </FrameLayout>
 
@@ -22,7 +24,7 @@
         android:id="@+id/imageView"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="57dp"
+        android:layout_marginStart="47dp"
         android:layout_marginTop="58dp"
         android:layout_marginEnd="216dp"
         android:visibility="visible"
@@ -34,7 +36,7 @@
 
     <TextView
         android:id="@+id/textID"
-        android:layout_width="170dp"
+        android:layout_width="200dp"
         android:layout_height="30dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="58dp"
@@ -65,7 +67,7 @@
         android:id="@+id/textLife"
         android:layout_width="80dp"
         android:layout_height="19dp"
-        android:layout_marginStart="97dp"
+        android:layout_marginStart="87dp"
         android:layout_marginTop="21dp"
         android:text="LIFE"
         android:textColor="#000000"
