@@ -45,7 +45,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
             img.setImageBitmap(bm);   //MyPhoto is image control.
 
         }
-    
+
 
 
 
