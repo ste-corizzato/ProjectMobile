@@ -19,10 +19,12 @@ public class Model {
         Log.d("Leaderboards", "populate model");
         try {
             JSONArray playersJSON = serverResponse.getJSONArray("ranking");
+            if(PlayersList.size()==0){
             for (int i = 0; i < playersJSON.length(); i++) {
                 JSONObject playerJSON = playersJSON.getJSONObject(i);
                 Player player = new Player(playerJSON);
                 PlayersList.add(player);
+            }
             }
         } catch (JSONException e) {
             e.printStackTrace();

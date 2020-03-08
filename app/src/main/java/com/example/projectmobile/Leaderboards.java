@@ -26,7 +26,11 @@ public class Leaderboards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboards);
 
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
@@ -45,10 +49,10 @@ public class Leaderboards extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        JsonObjectRequest getProfileRequest = new JsonObjectRequest(
+        JsonObjectRequest getRankingRequest = new JsonObjectRequest(
                 url,
                 jsonRequest,
-//
+
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -68,7 +72,7 @@ public class Leaderboards extends AppCompatActivity {
                 });
 
 
-        mRequestQueue.add(getProfileRequest);
+        mRequestQueue.add(getRankingRequest);
 
     }
 

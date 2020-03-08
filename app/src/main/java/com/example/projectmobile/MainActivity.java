@@ -7,11 +7,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -50,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 
     @Override
     protected void onStart() {
@@ -136,37 +142,61 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void getProfileResponse(JSONObject response) {
+    public void getProfileResponse(JSONObject response)  {
 
 
         TextView nometv = findViewById(R.id.textName);
         TextView lp = findViewById(R.id.textLife);
         TextView exp = findViewById(R.id.textExp);
+        ImageView img= findViewById(R.id.imageView);
 
-
-
+        Bitmap bm = null;
         try {
-            nometv.setText(response.getString("username"));
-            nome=nometv.getText().toString();
-
+            bm = StringToBitMap(response.getString("img"));
+            Log.d("MainActivity", response.getString("img"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        try {
-            lp.setText(response.getString("lp"));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        try {
-            exp.setText(response.getString("xp"));
-        } catch (JSONException e) {
-            e.printStackTrace();
+        img.setImageBitmap(bm);   //MyPhoto is image control.
+
+
+
+
+            try {
+                nometv.setText(response.getString("username"));
+                nome = nometv.getText().toString();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                lp.setText(response.getString("lp"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                exp.setText(response.getString("xp"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
         }
 
+
+
+    public Bitmap StringToBitMap (String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
 
     }
-
-    @Override
+        @Override
     protected void onResume() {
         super.onResume();
         Log.d("MainActivity", "onResume");
