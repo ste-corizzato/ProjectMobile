@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
         TextView exp = findViewById(R.id.textExp);
         ImageView img= findViewById(R.id.imageView);
 
-        Bitmap bm = null;
+        /*Bitmap bm = null;
         try {
             bm = StringToBitMap(response.getString("img"));
             Log.d("MainActivity", response.getString("img"));
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         }
         img.setImageBitmap(bm);   //MyPhoto is image control.
 
-
+*/
 
 
             try {
@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
+/*
     public Bitmap StringToBitMap (String encodedString) {
         try {
             byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    */
         @Override
     protected void onResume() {
         super.onResume();

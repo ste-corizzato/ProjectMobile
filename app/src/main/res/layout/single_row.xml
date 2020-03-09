@@ -46,15 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/img"
-        android:layout_width="127dp"
-        android:layout_height="92dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/avatar" />
+
 
     <View
         android:id="@+id/divider"
@@ -67,4 +59,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lp" />
+
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="67dp"
+        android:layout_height="69dp"
+        android:layout_marginStart="163dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="163dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
