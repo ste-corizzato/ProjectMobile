@@ -26,12 +26,14 @@ public class Leaderboards extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leaderboards);
 
+
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

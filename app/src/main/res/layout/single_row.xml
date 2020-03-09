@@ -50,12 +50,11 @@
         android:id="@+id/img"
         android:layout_width="127dp"
         android:layout_height="92dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="132dp"
-        tools:layout_editor_absoluteY="5dp"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@drawable/avatar" />
 
     <View
         android:id="@+id/divider"

@@ -37,12 +37,11 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         xp.setText(player.getXp());
         lp.setText(player.getLp());
 
-
+        if(player.getImg()!=null){
 
             Bitmap bm = StringToBitMap(player.getImg());
-
-
-            img.setImageBitmap(bm);   //MyPhoto is image control.
+            img.setImageBitmap(bm);
+        }
 
         }
 
