@@ -92,7 +92,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Style.
 
         CameraPosition position = new CameraPosition.Builder()
                 .target(new LatLng(45.4773,9.1815))
-                .zoom(10)
+                .zoom(11)
                 .tilt(20)
                 .build();
         mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
