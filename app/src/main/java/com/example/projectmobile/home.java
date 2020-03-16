@@ -65,6 +65,10 @@ public class home extends Fragment implements View.OnClickListener {
                 startActivity(intent);
 
                 break;
+
+            case R.id.button_map:
+                Intent intent2 =new Intent(getActivity(),Map.class);
+                startActivity(intent2);
         }
     }
 }
