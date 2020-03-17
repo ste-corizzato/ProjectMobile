@@ -1,172 +1,153 @@
 package com.example.projectmobile;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
-import android.view.View;
-
-
-import com.google.android.gms.tasks.OnSuccessListener;
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import androidx.annotation.NonNull;
+// Classes needed to initialize the map
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.maps.Style;
+// Classes needed to handle location permissions
+import com.mapbox.android.core.permissions.PermissionsListener;
+import com.mapbox.android.core.permissions.PermissionsManager;
+import java.util.List;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
 import com.mapbox.android.core.location.LocationEngineRequest;
 import com.mapbox.android.core.location.LocationEngineResult;
-import com.mapbox.mapboxsdk.Mapbox;
-import com.mapbox.mapboxsdk.camera.CameraPosition;
-import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
-import com.mapbox.mapboxsdk.geometry.LatLng;
+import java.lang.ref.WeakReference;
+
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
-import com.mapbox.mapboxsdk.location.LocationComponentOptions;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
-import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.mapboxsdk.maps.Style;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback, Style.OnStyleLoaded, LocationEngineCallback<LocationEngineResult> {
+public class Map extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, LocationEngineCallback<LocationEngineResult> {
 
-
-    private static final String TAG = "";
-    private static final int ERROR = 1 ;
-    private LocationComponent locationComponent;
-    private MapView mapView;
+    // Variabili per inizializzare la mappa
     private MapboxMap mapboxMap;
-    private final long DEFAULT_INTERVAL_IN_MILLISECONDS = 200L; //1000L
-    private final long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 1; //5
-    private LocationEngine locationEngine;
-    private boolean isLocationUpdateActive;
-    private Location currentLocation;
+    private MapView mapView;
+    // Variabili per i permessi
+    private PermissionsManager permissionsManager;
 
+    private LocationEngine locationEngine;
+    private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
+    private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
+    private Location currentLocation;
+    private final String GPS_ERROR = " Si è verificato un errore nel calcolo della posizione.\nPer favore, controlla di aver attivato il GPS e riprova più tardi.";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         Mapbox.getInstance(this, "pk.eyJ1Ijoibmljb2xhc3JhZGljY2hpIiwiYSI6ImNrN3VoNWR0YzB6aGEzZnNmOWhudHMxcjgifQ.NLpLVz5Ji-0Afy3gqP5H9g");
+
+
         setContentView(R.layout.activity_map);
+
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync( this);
+        mapView.getMapAsync(this);
+    }
 
-       if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-
-        } else {
-
-
-        }
-
+    @Override
+    public void onExplanationNeeded(List<String> permissionsToExplain) {
 
     }
 
+    @Override
+    public void onPermissionResult(boolean granted) {
+
+    }
+
+    @Override
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
-        mapboxMap.setStyle(Style.MAPBOX_STREETS, this);
 
+        mapboxMap.setStyle(Style.TRAFFIC_NIGHT,
+                new Style.OnStyleLoaded() {
+                    @Override
+                    public void onStyleLoaded(@NonNull Style style) {
+                        enableLocationComponent(style);
+                    }
+                });
     }
 
+    @SuppressWarnings({"MissingPermission"})
+    private void enableLocationComponent(@NonNull Style loadedMapStyle) {
+
+        if (PermissionsManager.areLocationPermissionsGranted(this)) {
+
+            LocationComponent locationComponent = mapboxMap.getLocationComponent();
 
 
+            LocationComponentActivationOptions locationComponentActivationOptions =
+                    LocationComponentActivationOptions.builder(this, loadedMapStyle)
+                            .useDefaultLocationEngine(false)
+                            .build();
 
 
+            locationComponent.activateLocationComponent(locationComponentActivationOptions);
 
 
-    @Override
-    public void onStyleLoaded(@NonNull Style style) {
-
-        CameraPosition position = new CameraPosition.Builder()
-                .target(new LatLng(45.4773,9.1815))
-                .zoom(10)
-                .tilt(20)
-                .build();
-        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
-        //enableLocationComponent(style);
-        //initLocationEngine();
-
-    }
+            locationComponent.setLocationComponentEnabled(true);
 
 
+            locationComponent.setCameraMode(CameraMode.TRACKING);
 
+            locationComponent.setRenderMode(RenderMode.COMPASS);
 
-    @SuppressWarnings( {"MissingPermission"})
-    private void enableLocationComponent(@NonNull Style loadedMapStyle) { //Attiva il componente che mostra la posizione dell'utente sulla mappa
-        locationComponent = mapboxMap.getLocationComponent();
-
-        LocationComponentOptions locationComponentOptions = LocationComponentOptions.builder(this)
-                .bearingTintColor(getColor(R.color.colorAccent))
-                .backgroundTintColor(getColor(R.color.colorAccent))
-                .accuracyAlpha(0f)
-                .build();
-
-        LocationComponentActivationOptions locationComponentActivationOptions =
-                LocationComponentActivationOptions.builder(this, loadedMapStyle)
-                        .useDefaultLocationEngine(false)
-                        .locationComponentOptions(locationComponentOptions)
-                        .build();
-
-        locationComponent.activateLocationComponent(locationComponentActivationOptions);
-
-        locationComponent.setLocationComponentEnabled(true);
-
-        locationComponent.setCameraMode(CameraMode.TRACKING);
-        locationComponent.setRenderMode(RenderMode.COMPASS);
-    }
-
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
-    }
-
-    private void stopLocationEngine() {
-        locationEngine.removeLocationUpdates(this);
-        isLocationUpdateActive = false;
-    }
-
-        @SuppressLint("MissingPermission")
-        private void initLocationEngine() {//Avvia il location engine con i vari parametri
-
-
-
-        locationEngine = LocationEngineProvider.getBestLocationEngine(this);
-            LocationEngineRequest request = new LocationEngineRequest.Builder(DEFAULT_INTERVAL_IN_MILLISECONDS)
-                    .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
-                    .setMaxWaitTime(DEFAULT_MAX_WAIT_TIME).build();
-            locationEngine.requestLocationUpdates(request, this, getMainLooper());
-            locationEngine.getLastLocation( this);
-            isLocationUpdateActive = true;
-
+            initLocationEngine();
+        } else {
+            permissionsManager = new PermissionsManager(this);
+            permissionsManager.requestLocationPermissions(this);
         }
+    }
+
+
+    @SuppressLint("MissingPermission")
+    private void initLocationEngine() {
+        locationEngine = LocationEngineProvider.getBestLocationEngine(this);
+
+        LocationEngineRequest request = new LocationEngineRequest.Builder(DEFAULT_INTERVAL_IN_MILLISECONDS)
+                .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
+                .setMaxWaitTime(DEFAULT_MAX_WAIT_TIME).build();
+
+        locationEngine.requestLocationUpdates(request, this, getMainLooper());
+        locationEngine.getLastLocation(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+            permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
+
+
 
 
     @Override
     public void onSuccess(LocationEngineResult result) {
         currentLocation = result.getLastLocation();
-        Log.d(TAG, "onSuccess: "+currentLocation);
+        Log.d("Map", "onSuccess: "+currentLocation);
         if (currentLocation == null) {
-            Toast.makeText(this, ERROR, Toast.LENGTH_LONG).show();
+            Toast.makeText(this, GPS_ERROR, Toast.LENGTH_LONG).show();
             Intent backHomeIntent = new Intent(this, MainActivity.class);
             startActivity(backHomeIntent);
             return;
         }
-        if (this.mapboxMap!= null) {
+        if (this.mapboxMap != null) {
             this.mapboxMap.getLocationComponent().forceLocationUpdate(currentLocation);
         }
     }
@@ -176,5 +157,50 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Style.
 
     }
 
+    protected void onStart() {
+        super.onStart();
+        mapView.onStart();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mapView.onStop();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        mapView.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+// Prevent leaks
+        if (locationEngine != null) {
+            locationEngine.removeLocationUpdates(this);
+        }
+        mapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mapView.onLowMemory();
+    }
 }
+
+
