@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 // Classes needed to initialize the map
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -30,6 +35,9 @@ import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Map extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, LocationEngineCallback<LocationEngineResult> {
 
     // Variabili per inizializzare la mappa
@@ -43,6 +51,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
     private Location currentLocation;
     private final String GPS_ERROR = " Si è verificato un errore nel calcolo della posizione.\nPer favore, controlla di aver attivato il GPS e riprova più tardi.";
+    public RequestQueue mRequestQueue = null;
 
 
     @Override
@@ -59,6 +68,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
     }
+
 
     @Override
     public void onExplanationNeeded(List<String> permissionsToExplain) {
@@ -152,6 +162,54 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
         }
     }
 
+
+    public void chiamataServerOggetti(){
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/getmap.php";
+        Log.d("Map", "funziona");
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("session_id", Model.getInstance().getSessionID());
+            Log.d("Map", "Eseguito: "+Model.getInstance().getSessionID());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest getMapRequest = new JsonObjectRequest(
+                url,
+                jsonRequest,
+
+
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Model.getInstance().MapObject(response);
+                        Log.d("Map", "Eseguito: " + response);
+
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Map", "Error: " + error.toString());
+                    }
+                });
+
+
+        mRequestQueue.add(getMapRequest);
+
+    }
+
+
+
+
     @Override
     public void onFailure(@NonNull Exception exception) {
 
@@ -166,6 +224,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     protected void onResume() {
         super.onResume();
         mapView.onResume();
+        chiamataServerOggetti();
     }
 
     @Override

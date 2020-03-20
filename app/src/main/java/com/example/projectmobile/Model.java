@@ -34,6 +34,25 @@ public class Model {
 
     }
 
+    public void MapObject(JSONObject serverResponse) {
+        Log.d("Map", "populate map");
+        try {
+            JSONArray MapObjectJSON = serverResponse.getJSONArray("getmap");
+            if(ObjectList.size()==0){
+                for (int i = 0; i < MapObjectJSON.length(); i++) {
+                    JSONObject objectJSON = MapObjectJSON.getJSONObject(i);
+                    MapObject MapObject = new MapObject(objectJSON);
+                    ObjectList.add(MapObject);
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
 
         public static synchronized Model getInstance() {
             if (instance == null) {
@@ -46,6 +65,7 @@ public class Model {
         private String sessionID;
         private String username;
         private ArrayList<Player> PlayersList = new ArrayList<>();
+        private ArrayList<MapObject> ObjectList = new ArrayList<>();
 
 
 
