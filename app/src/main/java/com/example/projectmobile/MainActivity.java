@@ -34,10 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     public String nome;
-    ImageButton button_setting;
 
-    Button play;
-    Button classifica;
+
+
     Model myModel;
 
     @Override
@@ -152,16 +151,21 @@ public class MainActivity extends AppCompatActivity {
         ImageView img= findViewById(R.id.imageView);
 
         Bitmap bm = null;
+
         try {
             bm = StringToBitMap(response.getString("img"));
+            if(bm==null){
+            }
             Log.d("MainActivity", response.getString("img"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        img.setImageBitmap(bm);   //MyPhoto is image control.
+        if(bm==null) {
+            img.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
 
-
-
+        }else {
+            img.setImageBitmap(bm);   //MyPhoto is image control.
+        }
 
             try {
                 nometv.setText(response.getString("username"));
@@ -181,8 +185,10 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
         }
+
+
+
 
 
 

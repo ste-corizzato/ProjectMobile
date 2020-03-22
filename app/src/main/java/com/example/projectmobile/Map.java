@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,11 +35,14 @@ import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, LocationEngineCallback<LocationEngineResult> {
+import static com.mapbox.mapboxsdk.style.layers.Property.ICON_ROTATION_ALIGNMENT_VIEWPORT;
+
+public class Map extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, LocationEngineCallback<LocationEngineResult>{
 
     // Variabili per inizializzare la mappa
     private MapboxMap mapboxMap;
@@ -52,6 +56,13 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     private Location currentLocation;
     private final String GPS_ERROR = " Si è verificato un errore nel calcolo della posizione.\nPer favore, controlla di aver attivato il GPS e riprova più tardi.";
     public RequestQueue mRequestQueue = null;
+
+    private final String MONSTER = "MO";
+    private final String CANDY= "CA";
+
+
+
+    private SymbolManager symbolManager;
 
 
     @Override
@@ -89,6 +100,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         enableLocationComponent(style);
+
+
                     }
                 });
     }
