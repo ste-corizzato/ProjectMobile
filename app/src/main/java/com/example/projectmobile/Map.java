@@ -53,7 +53,7 @@ import org.json.JSONObject;
 
 import static com.mapbox.mapboxsdk.style.layers.Property.ICON_ROTATION_ALIGNMENT_VIEWPORT;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, LocationEngineCallback<LocationEngineResult>{
+public class Map extends AppCompatActivity implements OnMapReadyCallback,  PermissionsListener, LocationEngineCallback<LocationEngineResult>, OnSymbolClickListener, OnSymbolLongClickListener{
 
     // Variabili per inizializzare la mappa
     private MapboxMap mapboxMap;
@@ -67,7 +67,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     private Location currentLocation;
     private final String GPS_ERROR = " Si è verificato un errore nel calcolo della posizione.\nPer favore, controlla di aver attivato il GPS e riprova più tardi.";
     public RequestQueue mRequestQueue = null;
-
+    private final String MONSTER_MARKER_IMAGE_ID = "monster-image";
+    private final String CANDY_MARKER_IMAGE_ID = "candy-image";
     private final String MONSTER = "MO";
     private final String CANDY= "CA";
 
@@ -88,6 +89,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
 
         setContentView(R.layout.activity_map);
+
+
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -114,6 +117,23 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         enableLocationComponent(style);
+
+                        Log.d("Map", "style");
+
+                        style.addImage(MONSTER_MARKER_IMAGE_ID,getDrawable(R.drawable.dragon));
+                        style.addImage(CANDY_MARKER_IMAGE_ID,getDrawable(R.drawable.candy));
+
+                        symbolManager = new SymbolManager(mapView, mapboxMap, style);
+                        //symbolManager.addClickListener(this);
+                        symbolManager.setIconAllowOverlap(true);
+                        symbolManager.setIconTranslate(new Float[]{-4f,5f});
+                        symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
+
+                        Log.d("oggetti", ""+ myMapObjectsModel.size());
+                        for(int i=0; i<myMapObjectsModel.size(); i++){
+                            onNewMapObjectsAdded(myMapObjectsModel.get(i));
+                        }
+
 
 
                     }
@@ -190,6 +210,28 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     }
 
 
+    public void onNewMapObjectsAdded(MapObject mapObject) {
+        Log.d("Map", "onNewObjectsAdded: "+mapObject.getIdObject()+" "+mapObject.getName()+" "+mapObject.getType()+" "+mapObject.getSize()+" "+mapObject.getLat()+" "+mapObject.getLon()+" ");
+
+        //MOSTRA IL NUOVO OGGETTO SULLA MAPPA
+        String imageId = null;
+        if(mapObject.getType().equals(MONSTER)){
+            imageId = MONSTER_MARKER_IMAGE_ID;
+        } else if(mapObject.getType().equals(CANDY)){
+            imageId = CANDY_MARKER_IMAGE_ID;
+        }
+
+        if(imageId == null){
+            return;
+        }
+
+        symbolManager.create(new SymbolOptions()
+                .withLatLng(new LatLng((mapObject.getLat()),mapObject.getLon()))
+                .withIconImage(imageId)
+                .withData(createIdJsonElement(mapObject.getIdObject()))
+                .withIconSize(0.04f));
+    }
+
     public void chiamataServerOggetti(){
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/getmap.php";
@@ -234,29 +276,11 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
     }
 
-    public void onNewMapObjectsAdded(MapObject mapObject) {
-        Log.d("Map", "onNewObjectsAdded: "+mapObject.getIdObject()+" "+mapObject.getName()+" "+mapObject.getType()+" "+mapObject.getSize()+" "+mapObject.getLat()+" "+mapObject.getLon()+" ");
-
-        //MOSTRA IL NUOVO OGGETTO SULLA MAPPA
-        String imageId = null;
-        /*if(mapObject.getType().equals(MONSTER_TYPE_CODE)){
-            imageId = MONSTER_MARKER_IMAGE_ID;
-        } else if(mapObject.getType().equals(CANDY_TYPE_CODE)){
-            imageId = CANDY_MARKER_IMAGE_ID;
-        }
-
-        if(imageId == null){
-            return;
-        }
-        */
 
 
-        symbolManager.create(new SymbolOptions()
-                .withLatLng(new LatLng((mapObject.getLat()),mapObject.getLon()))
-                .withIconImage(imageId)
-                .withData(createIdJsonElement(mapObject.getIdObject()))
-                .withIconSize(2.0f));
-    }
+
+
+
 
     private JsonElement createIdJsonElement(int id) {
         return new Gson().fromJson("{\"id\":\""+id+"\"}", JsonElement.class);
@@ -271,13 +295,23 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     protected void onStart() {
         super.onStart();
         mapView.onStart();
+        if(this.mapboxMap != null && mapboxMap.getStyle() != null){
+            symbolManager.deleteAll();
+            Log.d("Map", "onStart: map objects retrieved again");
+            symbolManager.addClickListener(this);
+        }
+
+        Log.d("Map", "eccoci");
+        chiamataServerOggetti();
+
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mapView.onResume();
-        chiamataServerOggetti();
+
     }
 
     @Override
@@ -312,6 +346,16 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
+    }
+
+    @Override
+    public void onAnnotationClick(Symbol symbol) {
+
+    }
+
+    @Override
+    public void onAnnotationLongClick(Symbol symbol) {
+
     }
 }
 

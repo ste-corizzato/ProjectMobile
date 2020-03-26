@@ -18,6 +18,7 @@ public class Model {
     public void populate(JSONObject serverResponse) {
         Log.d("Leaderboards", "populate model");
         try {
+
             JSONArray playersJSON = serverResponse.getJSONArray("ranking");
             if(PlayersList.size()==0){
             for (int i = 0; i < playersJSON.length(); i++) {
@@ -36,14 +37,17 @@ public class Model {
 
     public void MapObject(JSONObject serverResponse) {
         Log.d("Map", "populate map");
+
         try {
-            JSONArray MapObjectJSON = serverResponse.getJSONArray("getmap");
-            if(ObjectList.size()==0){
+
+            JSONArray MapObjectJSON = serverResponse.getJSONArray("mapobjects");
+
                 for (int i = 0; i < MapObjectJSON.length(); i++) {
                     JSONObject objectJSON = MapObjectJSON.getJSONObject(i);
                     MapObject MapObject = new MapObject(objectJSON);
                     ObjectList.add(MapObject);
-                }
+
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
