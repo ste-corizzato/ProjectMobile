@@ -92,9 +92,14 @@ public class Model {
         return PlayersList;
     }
 
+    public ArrayList<MapObject> getMapObjectList(){return ObjectList;}
+
     public Player get(int index) {
         return PlayersList.get(index);
     }
+
+
+
     public int getSize() {
         return PlayersList.size();
     }

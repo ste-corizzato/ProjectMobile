@@ -15,7 +15,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
@@ -23,6 +26,8 @@ import com.mapbox.mapboxsdk.maps.Style;
 // Classes needed to handle location permissions
 import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
+
+import java.util.ArrayList;
 import java.util.List;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
@@ -36,6 +41,12 @@ import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
 import com.mapbox.mapboxsdk.location.modes.CameraMode;
 import com.mapbox.mapboxsdk.location.modes.RenderMode;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
+
+import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolClickListener;
+import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolLongClickListener;
+import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +70,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
     private final String MONSTER = "MO";
     private final String CANDY= "CA";
+
+    private ArrayList<MapObject> myMapObjectsModel = Model.getInstance().getMapObjectList();
+
 
 
 
@@ -220,7 +234,33 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
     }
 
+    public void onNewMapObjectsAdded(MapObject mapObject) {
+        Log.d("Map", "onNewObjectsAdded: "+mapObject.getIdObject()+" "+mapObject.getName()+" "+mapObject.getType()+" "+mapObject.getSize()+" "+mapObject.getLat()+" "+mapObject.getLon()+" ");
 
+        //MOSTRA IL NUOVO OGGETTO SULLA MAPPA
+        String imageId = null;
+        /*if(mapObject.getType().equals(MONSTER_TYPE_CODE)){
+            imageId = MONSTER_MARKER_IMAGE_ID;
+        } else if(mapObject.getType().equals(CANDY_TYPE_CODE)){
+            imageId = CANDY_MARKER_IMAGE_ID;
+        }
+
+        if(imageId == null){
+            return;
+        }
+        */
+
+
+        symbolManager.create(new SymbolOptions()
+                .withLatLng(new LatLng((mapObject.getLat()),mapObject.getLon()))
+                .withIconImage(imageId)
+                .withData(createIdJsonElement(mapObject.getIdObject()))
+                .withIconSize(2.0f));
+    }
+
+    private JsonElement createIdJsonElement(int id) {
+        return new Gson().fromJson("{\"id\":\""+id+"\"}", JsonElement.class);
+    }
 
 
     @Override

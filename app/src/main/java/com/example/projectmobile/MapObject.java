@@ -5,14 +5,14 @@ import org.json.JSONObject;
 
 
 public class MapObject {
-    private String idObject;
-    private String lat;
-    private String lon;
+    private int idObject;
+    private Double lat;
+    private Double lon;
     private String type;
     private String size;
     private String name;
 
-    public MapObject(String idObject, String lat, String lon, String type, String size, String name) {
+    public MapObject(int idObject, Double lat, Double lon, String type, String size, String name) {
 
         this.idObject=idObject;
         this.lat= lat;
@@ -25,9 +25,9 @@ public class MapObject {
     public MapObject(JSONObject MapObjectJSON) {
 
         try {
-            this.idObject= MapObjectJSON.getString("id");
-            this.lat= MapObjectJSON.getString("lat");
-            this.lon= MapObjectJSON.getString("lon");
+            this.idObject= Integer.parseInt(MapObjectJSON.getString("id"));
+            this.lat= Double.parseDouble(MapObjectJSON.getString("lat"));
+            this.lon= Double.parseDouble(MapObjectJSON.getString("lon"));
             this.type= MapObjectJSON.getString("type");
             this.size= MapObjectJSON.getString("size");
             this.name= MapObjectJSON.getString("name");
@@ -38,16 +38,18 @@ public class MapObject {
         }
     }
 
-    public String getIdObject() {
+
+
+    public int getIdObject() {
         return idObject;
     }
 
-    public String getLat(){
+    public Double getLat(){
         return lat;
     }
 
 
-    public String getLon(){
+    public Double getLon(){
         return lon;
     }
 
