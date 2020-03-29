@@ -35,46 +35,12 @@ public class Leaderboards extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        Log.d("Leaderboards", "" +Model.getInstance().getPlayerList().size());
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         MyAdapter adapter = new MyAdapter(this, this,Model.getInstance().getPlayerList());
         recyclerView.setAdapter(adapter);
 
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-
-        final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/ranking.php";
-
-        JSONObject jsonRequest = new JSONObject();
-        try {
-            jsonRequest.put("session_id", Model.getInstance().getSessionID());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        JsonObjectRequest getRankingRequest = new JsonObjectRequest(
-                url,
-                jsonRequest,
-
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        Model.getInstance().populate(response);
-                        Log.d("Leaderboards", "Eseguito: " + response);
-
-                    }
-
-
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Leaderboards", "Error: " + error.toString());
-                    }
-                });
-
-
-        mRequestQueue.add(getRankingRequest);
 
     }
 

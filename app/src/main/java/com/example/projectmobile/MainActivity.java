@@ -52,13 +52,54 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     }
 
+    private void getPlayerRequest() {
+
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/ranking.php";
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("session_id", Model.getInstance().getSessionID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest getRankingRequest = new JsonObjectRequest(
+                url,
+                jsonRequest,
+
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Model.getInstance().populate(response);
+                        Log.d("MainActivity", "Eseguito Leaderboards: " + response);
+
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("MainActivity", "Error Leaderboards: " + error.toString());
+                    }
+                });
+
+
+        mRequestQueue.add(getRankingRequest);
+    }
 
 
     @Override
     protected void onStart() {
         super.onStart();
+
 
     }
 
@@ -220,6 +261,7 @@ public class MainActivity extends AppCompatActivity {
             idtext.setText(myModel.getSessionID());
 
             getProfile();
+            getPlayerRequest();
         }
 
     }
