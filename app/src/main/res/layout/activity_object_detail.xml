@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/tipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="61dp"
+        android:layout_width="73dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="160dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="61dp"
+        android:layout_marginEnd="160dp"
         android:text="Tipo"
         android:textColor="#000000"
         android:textSize="36sp"
@@ -20,6 +20,50 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageObj"
+        android:layout_width="301dp"
+        android:layout_height="301dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="46dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tipo"
+        app:srcCompat="@drawable/avatar" />
+
+    <TextView
+        android:id="@+id/Name"
+        android:layout_width="211dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="91dp"
+        android:text="NAME"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageObj" />
+
+    <TextView
+        android:id="@+id/Size"
+        android:layout_width="211dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="91dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="91dp"
+        android:text="SIZE"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
