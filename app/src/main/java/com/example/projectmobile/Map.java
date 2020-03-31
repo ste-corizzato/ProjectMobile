@@ -47,13 +47,14 @@ import com.mapbox.mapboxsdk.plugins.annotation.OnSymbolLongClickListener;
 import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
 import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import static com.mapbox.mapboxsdk.style.layers.Property.ICON_ROTATION_ALIGNMENT_VIEWPORT;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback,  PermissionsListener, LocationEngineCallback<LocationEngineResult>, OnSymbolClickListener, OnSymbolLongClickListener{
+public class Map extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, LocationEngineCallback<LocationEngineResult>, OnSymbolLongClickListener{
 
     // Variabili per inizializzare la mappa
     private MapboxMap mapboxMap;
@@ -74,6 +75,11 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Permi
 
     private ArrayList<MapObject> myMapObjectsModel = Model.getInstance().getMapObjectList();
 
+    private boolean isLocationUpdateActive = false;
+    private int idRequest =0;
+    private String immagine ="";
+    String risposta;
+
 
 
 
@@ -89,8 +95,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Permi
 
 
         setContentView(R.layout.activity_map);
-
-
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
@@ -124,15 +128,30 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Permi
                         style.addImage(CANDY_MARKER_IMAGE_ID,getDrawable(R.drawable.candy));
 
                         symbolManager = new SymbolManager(mapView, mapboxMap, style);
-                        //symbolManager.addClickListener(this);
+                        symbolManager.addClickListener(new OnSymbolClickListener(){
+
+
+                            public void onAnnotationClick(Symbol symbol) {
+                                Log.d("Object_detail", ""+getObjectIdFromSymbol(symbol));
+                                idRequest=getObjectIdFromSymbol(symbol);
+                                getImageObjectRequest();
+                                Intent intent2 = new Intent(getApplicationContext(), Object_detail.class);
+                                intent2.putExtra("IdObject", Integer.toString(getObjectIdFromSymbol(symbol)));
+
+                                startActivity(intent2);
+
+
+
+
+
+                            }
+                        });
                         symbolManager.setIconAllowOverlap(true);
                         symbolManager.setIconTranslate(new Float[]{-4f,5f});
                         symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
 
-                        Log.d("oggetti", ""+ myMapObjectsModel.size());
-                        for(int i=0; i<myMapObjectsModel.size(); i++){
-                            onNewMapObjectsAdded(myMapObjectsModel.get(i));
-                        }
+                        chiamataServerOggetti();
+
 
 
 
@@ -182,6 +201,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Permi
 
         locationEngine.requestLocationUpdates(request, this, getMainLooper());
         locationEngine.getLastLocation(this);
+        isLocationUpdateActive = true;
     }
 
     @Override
@@ -274,6 +294,12 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Permi
 
         mRequestQueue.add(getMapRequest);
 
+        Log.d("oggetti", ""+ myMapObjectsModel.size());
+        for(int i=0; i<myMapObjectsModel.size(); i++){
+            onNewMapObjectsAdded(myMapObjectsModel.get(i));
+        }
+
+
     }
 
 
@@ -298,10 +324,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Permi
         if(this.mapboxMap != null && mapboxMap.getStyle() != null){
             symbolManager.deleteAll();
             Log.d("Map", "onStart: map objects retrieved again");
-            symbolManager.addClickListener(this);
         }
-
-        Log.d("Map", "eccoci");
         chiamataServerOggetti();
 
 
@@ -318,11 +341,17 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Permi
     protected void onPause() {
         super.onPause();
         mapView.onPause();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+
+        Log.d("Map", "onStop: "+locationEngine);
+        if (locationEngine != null) {
+            stopLocationEngine();
+        }
         mapView.onStop();
     }
 
@@ -348,15 +377,99 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Permi
         mapView.onLowMemory();
     }
 
-    @Override
-    public void onAnnotationClick(Symbol symbol) {
 
-    }
+
 
     @Override
     public void onAnnotationLongClick(Symbol symbol) {
 
     }
+
+    private int getObjectIdFromSymbol(Symbol s){
+        int objectId = s.getData().getAsJsonObject().get("id").getAsInt();
+        Log.d("Map", "getObjectIdFromSymbol: "+objectId);
+        return objectId;
+    }
+
+    private void stopLocationEngine() {
+        locationEngine.removeLocationUpdates(this);
+        isLocationUpdateActive = false;
+    }
+
+
+    public void getImageObjectRequest(){
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        final String url2 = "https://ewserver.di.unimi.it/mobicomp/mostri/getimage.php";
+        Log.d("Map", "funziona richiesta immagine");
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("session_id", Model.getInstance().getSessionID());
+            jsonRequest.put("target_id",Integer.toString(idRequest));
+
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest getMapRequest = new JsonObjectRequest(
+                url2,
+                jsonRequest,
+
+
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("Map", "Eseguito: " + response);
+                        getImgResponse(response);
+
+
+
+
+
+
+
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Map", "Error: " + error.toString());
+                    }
+                });
+
+
+        mRequestQueue.add(getMapRequest);
+
+
+
+
+
+
+    }
+
+    public void getImgResponse(JSONObject response)  {
+
+        try {
+            immagine =response.getString("img");
+            Model.getInstance().setImgObject(immagine);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
+
 }
 
 
