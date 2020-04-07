@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
@@ -78,7 +81,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     private boolean isLocationUpdateActive = false;
     private int idRequest =0;
     private String immagine ="";
-    String risposta;
+
+    private Button PointDisplay;
 
 
 
@@ -95,7 +99,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
 
         setContentView(R.layout.activity_map);
-
+        PointDisplay = findViewById(R.id.PointDisplay);
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
@@ -121,6 +125,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         enableLocationComponent(style);
+
+
 
                         Log.d("Map", "style");
 
@@ -252,7 +258,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
                 .withIconSize(0.04f));
     }
 
-    public void chiamataServerOggetti(){
+    private void chiamataServerOggetti(){
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/getmap.php";
         Log.d("Map", "funziona");
@@ -301,11 +307,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
 
     }
-
-
-
-
-
 
 
     private JsonElement createIdJsonElement(int id) {
@@ -364,7 +365,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-// Prevent leaks
+
         if (locationEngine != null) {
             locationEngine.removeLocationUpdates(this);
         }
@@ -381,7 +382,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
 
     @Override
-    public void onAnnotationLongClick(Symbol symbol) {
+    public  void onAnnotationLongClick(Symbol symbol) {
 
     }
 
@@ -397,15 +398,16 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     }
 
 
-    public void getImageObjectRequest(){
+    private void getImageObjectRequest(){
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         final String url2 = "https://ewserver.di.unimi.it/mobicomp/mostri/getimage.php";
         Log.d("Map", "funziona richiesta immagine");
 
         JSONObject jsonRequest = new JSONObject();
         try {
-            jsonRequest.put("session_id", Model.getInstance().getSessionID());
-            jsonRequest.put("target_id",Integer.toString(idRequest));
+
+                jsonRequest.put("session_id", Model.getInstance().getSessionID());
+                jsonRequest.put("target_id", Integer.toString(idRequest));
 
 
 
@@ -447,14 +449,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
         mRequestQueue.add(getMapRequest);
 
-
-
-
-
-
     }
 
-    public void getImgResponse(JSONObject response)  {
+    private void getImgResponse(JSONObject response)  {
 
         try {
             immagine =response.getString("img");
@@ -467,6 +464,14 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
 
 
+    }
+
+    public void onClickButton(View view) {
+        CameraPosition position = new CameraPosition.Builder()
+                .target(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                .zoom(16.5)
+                .build();
+        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
     }
 
 

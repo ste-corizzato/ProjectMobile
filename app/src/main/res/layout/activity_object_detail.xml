@@ -24,8 +24,8 @@
 
     <ImageView
         android:id="@+id/imageObj"
-        android:layout_width="301dp"
-        android:layout_height="301dp"
+        android:layout_width="201dp"
+        android:layout_height="201dp"
         android:layout_marginStart="46dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="46dp"
@@ -39,7 +39,7 @@
     <TextView
         android:id="@+id/Name"
         android:layout_width="211dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_marginStart="91dp"
         android:layout_marginTop="55dp"
         android:layout_marginEnd="91dp"
@@ -55,7 +55,7 @@
     <TextView
         android:id="@+id/Size"
         android:layout_width="211dp"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_marginStart="91dp"
         android:layout_marginTop="41dp"
         android:layout_marginEnd="91dp"
@@ -67,6 +67,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Name" />
+
+    <Button
+        android:id="@+id/fight"
+        android:layout_width="211dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginBottom="253dp"
+        android:backgroundTint="#3F51B5"
+        android:onClick="onClick"
+        android:text="Fight"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Size" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

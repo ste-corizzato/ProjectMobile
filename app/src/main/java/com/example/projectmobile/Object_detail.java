@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,9 +29,9 @@ public class Object_detail extends AppCompatActivity {
 
     private ArrayList<MapObject> myMapObjectsModel = Model.getInstance().getMapObjectList();
 
-
     private String s;
     private int id;
+
 
 
 
@@ -43,6 +45,8 @@ public class Object_detail extends AppCompatActivity {
         s=myIntent.getStringExtra("IdObject");
         id=Integer.parseInt(s);
         Log.d("Object_detail", ""+id);
+
+
 
     }
 
@@ -67,6 +71,7 @@ public class Object_detail extends AppCompatActivity {
         TextView name = findViewById(R.id.Name);
         TextView size = findViewById(R.id.Size);
         ImageView img= findViewById(R.id.imageObj);
+        Button b=findViewById(R.id.fight);
 
 
 
@@ -75,6 +80,7 @@ public class Object_detail extends AppCompatActivity {
 
                 if(myMapObjectsModel.get(i).getType().equals("CA")){
                     type.setText("CARAMELLA");
+                    b.setText("EAT");
                 }else{
                     type.setText("MOSTRO");
                 }
@@ -94,6 +100,8 @@ public class Object_detail extends AppCompatActivity {
 
         }
 
+
+
     }
 
     public Bitmap StringToBitMap (String encodedString) {
@@ -108,5 +116,63 @@ public class Object_detail extends AppCompatActivity {
 
     }
 
+    public void onClick(View view){
+        RichiestaServerFighteat();
+
+
+        Intent backHomeIntent = new Intent(this, MainActivity.class);
+        startActivity(backHomeIntent);
+
+
+
+    }
+
+    private void RichiestaServerFighteat() {
+        RequestQueue mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/fighteat.php";
+        Log.d("Object_detail", "funziona");
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("session_id", Model.getInstance().getSessionID());
+            jsonRequest.put("target_id", s);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest getMapRequest = new JsonObjectRequest(
+                url,
+                jsonRequest,
+
+
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("Object_detail", ""+response);
+
+
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Object_detail", "Error: " + error.toString());
+                    }
+                });
+
+
+        mRequestQueue.add(getMapRequest);
+    }
+
+
 
 }
+
+
+
+

@@ -36,15 +36,36 @@ class Player {
         return username;
     }
 
+    public void setUsername(String username) {
+
+        this.username = username;
+    }
+
+
+
     public String getImg(){
         return img;
     }
+
+    public void setImg(String img){
+        this.img=img;
+    }
+
     public String getXp(){
         return xp;
     }
 
+    public void setXp(String xp){
+        this.xp=xp;
+    }
+
+
     public String getLp() {
         return lp;
+    }
+
+    public void setLp(String lp){
+        this.lp=lp;
     }
 
 
