@@ -36,7 +36,7 @@ public class Object_detail extends AppCompatActivity {
     private String s, immagine;
     private int id;
 
-    private String lp,exp;
+    private String died,lp,exp;
 
 
 
@@ -191,11 +191,6 @@ public class Object_detail extends AppCompatActivity {
 
     public void onClick(View view){
         RichiestaServerFighteat();
-        getProfile();
-
-
-
-
 
 
         /*Intent backHomeIntent = new Intent(this, MainActivity.class);
@@ -230,12 +225,12 @@ public class Object_detail extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("Object_detail", ""+response);
+                        getProfileResponse(response);
 
 
                     }
 
-
-                },
+                    },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -247,40 +242,16 @@ public class Object_detail extends AppCompatActivity {
         mRequestQueue.add(getMapRequest);
     }
 
-    public void getProfile(){
-        mRequestQueue=Volley.newRequestQueue(this);
-        final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/getprofile.php";
-
-        JSONObject jsonRequest = new JSONObject();
-        try {
-            jsonRequest.put("session_id",Model.getInstance().getSessionID());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        JsonObjectRequest getProfileRequest = new JsonObjectRequest(
-                url,
-                jsonRequest,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        getProfileResponse(response);
-                        Log.d("MainActivity", "Eseguito: "+response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("MainActivity", "Error: " + error.toString());
-                    }});
-
-
-        mRequestQueue.add(getProfileRequest);
-
-    }
 
 
     public void getProfileResponse(JSONObject response)  {
+
+        try {
+            died=response.getString("died");
+            Log.d("Object_detail", ""+died);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         try {
             lp=response.getString("lp");
