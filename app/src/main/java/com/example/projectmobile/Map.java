@@ -80,7 +80,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
     private boolean isLocationUpdateActive = false;
     private int idRequest =0;
-    private String immagine ="";
 
     private Button PointDisplay;
 
@@ -136,11 +135,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
                         symbolManager = new SymbolManager(mapView, mapboxMap, style);
                         symbolManager.addClickListener(new OnSymbolClickListener(){
 
-
                             public void onAnnotationClick(Symbol symbol) {
                                 Log.d("Object_detail", ""+getObjectIdFromSymbol(symbol));
                                 idRequest=getObjectIdFromSymbol(symbol);
-                                getImageObjectRequest();
                                 Intent intent2 = new Intent(getApplicationContext(), Object_detail.class);
                                 intent2.putExtra("IdObject", Integer.toString(getObjectIdFromSymbol(symbol)));
 
@@ -398,73 +395,11 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     }
 
 
-    private void getImageObjectRequest(){
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        final String url2 = "https://ewserver.di.unimi.it/mobicomp/mostri/getimage.php";
-        Log.d("Map", "funziona richiesta immagine");
-
-        JSONObject jsonRequest = new JSONObject();
-        try {
-
-                jsonRequest.put("session_id", Model.getInstance().getSessionID());
-                jsonRequest.put("target_id", Integer.toString(idRequest));
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        JsonObjectRequest getMapRequest = new JsonObjectRequest(
-                url2,
-                jsonRequest,
-
-
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        Log.d("Map", "Eseguito: " + response);
-                        getImgResponse(response);
 
 
 
 
 
-
-
-                    }
-
-
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Map", "Error: " + error.toString());
-                    }
-                });
-
-
-        mRequestQueue.add(getMapRequest);
-
-    }
-
-    private void getImgResponse(JSONObject response)  {
-
-        try {
-            immagine =response.getString("img");
-            Model.getInstance().setImgObject(immagine);
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-
-
-    }
 
     public void onClickButton(View view) {
         CameraPosition position = new CameraPosition.Builder()

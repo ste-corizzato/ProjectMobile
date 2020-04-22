@@ -1,5 +1,6 @@
 package com.example.projectmobile;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -23,14 +24,19 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
 
 public class Object_detail extends AppCompatActivity {
 
     private ArrayList<MapObject> myMapObjectsModel = Model.getInstance().getMapObjectList();
 
-    private String s;
+    RequestQueue mRequestQueue=null;
+
+    private String s, immagine;
     private int id;
+
+    private String lp,exp;
 
 
 
@@ -46,10 +52,11 @@ public class Object_detail extends AppCompatActivity {
         id=Integer.parseInt(s);
         Log.d("Object_detail", ""+id);
 
+        getImageObjectRequest();
+
 
 
     }
-
 
 
     @Override
@@ -70,7 +77,6 @@ public class Object_detail extends AppCompatActivity {
         TextView type = findViewById(R.id.Type);
         TextView name = findViewById(R.id.Name);
         TextView size = findViewById(R.id.Size);
-        ImageView img= findViewById(R.id.imageObj);
         Button b=findViewById(R.id.fight);
 
 
@@ -90,9 +96,7 @@ public class Object_detail extends AppCompatActivity {
 
                 Log.d("Object_detail", "Immagine: "+Model.getInstance().getImgObject());
 
-                Bitmap bm = StringToBitMap(Model.getInstance().getImgObject());
-                Log.d("Object_detail", ""+bm);
-                img.setImageBitmap(bm);
+
 
 
 
@@ -101,6 +105,73 @@ public class Object_detail extends AppCompatActivity {
         }
 
 
+
+    }
+
+
+    private void getImageObjectRequest(){
+        final ImageView img= findViewById(R.id.imageObj);
+
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        final String url2 = "https://ewserver.di.unimi.it/mobicomp/mostri/getimage.php";
+        Log.d("Map", "funziona richiesta immagine");
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+
+            jsonRequest.put("session_id", Model.getInstance().getSessionID());
+            jsonRequest.put("target_id", Integer.toString(id));
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest getMapRequest = new JsonObjectRequest(
+                url2,
+                jsonRequest,
+
+
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Log.d("Map", "Eseguito: " + response);
+                        getImgResponse(response);
+                        Bitmap bm = StringToBitMap(immagine);
+                        Log.d("Object_detail", ""+bm);
+                        img.setImageBitmap(bm);
+
+
+
+
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Map", "Error: " + error.toString());
+                    }
+                });
+
+
+        mRequestQueue.add(getMapRequest);
+
+    }
+
+    private void getImgResponse(JSONObject response) {
+
+        try {
+            immagine = response.getString("img");
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -116,13 +187,20 @@ public class Object_detail extends AppCompatActivity {
 
     }
 
+
+
     public void onClick(View view){
         RichiestaServerFighteat();
+        getProfile();
 
 
-        Intent backHomeIntent = new Intent(this, MainActivity.class);
+
+
+
+
+        /*Intent backHomeIntent = new Intent(this, MainActivity.class);
         startActivity(backHomeIntent);
-
+    */
 
 
     }
@@ -168,6 +246,60 @@ public class Object_detail extends AppCompatActivity {
 
         mRequestQueue.add(getMapRequest);
     }
+
+    public void getProfile(){
+        mRequestQueue=Volley.newRequestQueue(this);
+        final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/getprofile.php";
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("session_id",Model.getInstance().getSessionID());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest getProfileRequest = new JsonObjectRequest(
+                url,
+                jsonRequest,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        getProfileResponse(response);
+                        Log.d("MainActivity", "Eseguito: "+response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("MainActivity", "Error: " + error.toString());
+                    }});
+
+
+        mRequestQueue.add(getProfileRequest);
+
+    }
+
+
+    public void getProfileResponse(JSONObject response)  {
+
+        try {
+            lp=response.getString("lp");
+            Log.d("Object_detail", ""+lp);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            exp=response.getString("xp");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle("CONGRATULATIONS ");
+        builder.setMessage("YOU HAVE REACHED: "+lp+"LP AND "+exp+ "xp");
+        builder.show();
+
+    }
+
 
 
 

@@ -103,7 +103,6 @@ public class Model {
         return PlayersList.get(index);
     }
 
-    public void setImgObject(String ImgObject){ this.ImgObject=ImgObject; }
 
     public String getImgObject(){ return ImgObject; }
 
