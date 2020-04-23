@@ -21,17 +21,17 @@ import android.widget.TextView;
 
 public class home extends Fragment implements View.OnClickListener {
 
-    ImageButton button_setting;
+    //ImageButton button_setting;
     Button play;
     Button classifica;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View w= inflater.inflate(R.layout.fragment_home, container, false);
-        button_setting = w.findViewById(R.id.button_imp);
+        //button_setting = w.findViewById(R.id.button_imp);
 
-        button_setting=w.findViewById(R.id.button_imp);
-        button_setting.setOnClickListener(this);
+        //button_setting=w.findViewById(R.id.button_imp);
+        //button_setting.setOnClickListener(this);
 
         play = w.findViewById(R.id.button_map);
         play.setOnClickListener((this));
@@ -46,7 +46,7 @@ public class home extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch(view.getId()){
-            case R.id.button_imp:
+            /*case R.id.button_imp:
 
                 fragment_profile newFragment = new fragment_profile();
 
@@ -60,6 +60,8 @@ public class home extends Fragment implements View.OnClickListener {
                 Log.d("MyMainActivity", "impostazioni funziona");
 
                 break;
+
+             */
             case R.id.button_leaderboards:
                 Intent intent =new Intent(getActivity(),Leaderboards.class);
                 startActivity(intent);

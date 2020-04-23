@@ -49,11 +49,6 @@ public class MainActivity extends AppCompatActivity {
 
         myModel=Model.getInstance();
 
-
-
-
-
-
     }
 
     private void getPlayerRequest() {
@@ -102,8 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
 
 
 
@@ -230,7 +223,23 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.btnMod:
 
+                fragment_profile newFragment = new fragment_profile();
+
+                FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+
+                ft1.replace(R.id.fragment_container, newFragment);
+                ft1.addToBackStack(null);
+
+                ft1.commit();
+                Log.d("MyMainActivity", "impostazioni funziona");
+
+                break;
+        }
+    }
 
 
     public Bitmap StringToBitMap (String encodedString) {
@@ -257,8 +266,8 @@ public class MainActivity extends AppCompatActivity {
             firstRegister();
         }else{
             Log.d("MainActivity","session id locale: "+myModel.getSessionID());
-            TextView idtext = findViewById(R.id.textID);
-            idtext.setText(myModel.getSessionID());
+            //TextView idtext = findViewById(R.id.textID); non mostriamo il SessionID
+            //idtext.setText(myModel.getSessionID());
 
             getProfile();
             getPlayerRequest();

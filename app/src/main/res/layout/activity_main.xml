@@ -8,107 +8,113 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="393dp"
-        android:layout_height="785dp"
+        android:layout_width="0dp"
+        android:layout_height="550dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
     </FrameLayout>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="47dp"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="216dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="15dp"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnMod"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar"
         tools:srcCompat="@drawable/avatar"
         tools:visibility="visible" />
 
-    <TextView
-        android:id="@+id/textID"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
+    <Button
+        android:id="@+id/btnMod"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="194dp"
+        android:layout_height="40dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="58dp"
-        android:text="SessionID"
-        android:textAlignment="gravity"
+        android:layout_marginTop="15dp"
+        android:onClick="onClick"
+        android:text="SETTINGS"
+        android:textAlignment="center"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="194dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="27dp"
+        android:text="NomeUtente"
+        android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textName"
-        android:layout_width="170dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="31dp"
-        android:text="NomeUtente"
-        android:textAlignment="gravity"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textID" />
-
-    <TextView
         android:id="@+id/textLife"
-        android:layout_width="80dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="87dp"
-        android:layout_marginTop="21dp"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
         android:text="LIFE"
+        android:textAlignment="center"
         android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/textViewLife"
+        app:layout_constraintTop_toBottomOf="@+id/btnMod" />
 
     <TextView
         android:id="@+id/textExp"
-        android:layout_width="80dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="21dp"
-        android:layout_marginEnd="81dp"
+        android:layout_width="50dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="27dp"
         android:text="EXP"
+        android:textAlignment="center"
         android:textColor="#000000"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/btnMod" />
 
     <TextView
         android:id="@+id/textViewLife"
         android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="57dp"
-        android:layout_marginTop="21dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
         android:text="LIFE:"
+        android:textAlignment="center"
         android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/btnMod" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="66dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="20dp"
         android:text="EXP:"
+        android:textAlignment="center"
         android:textColor="#000000"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/textLife"
-        app:layout_constraintTop_toBottomOf="@+id/textName" />
+        app:layout_constraintEnd_toStartOf="@+id/textExp"
+        app:layout_constraintTop_toBottomOf="@+id/btnMod" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
