@@ -1,6 +1,11 @@
 package com.example.projectmobile;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.icu.text.Collator;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,10 +14,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -33,7 +41,11 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     String username_text = null;
     String img = null;
     Button modifica;
+    Button cambiafoto;
+    ImageView fotoprofilo;
 
+    private static final int IMAGE_PICK_CODE = 1000;
+    private static final int PERMISSION_CODE = 1001;
 
 
     @Nullable
@@ -45,6 +57,10 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         modifica= (Button) w.findViewById(R.id.Modifica);;
         modifica.setOnClickListener(this);
 
+        fotoprofilo = w.findViewById(R.id.imageViewPicture);
+        
+        cambiafoto = w.findViewById(R.id.button_change_img);
+        cambiafoto.setOnClickListener(this);
 
         return w;
 
@@ -82,6 +98,25 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 transaction2.commit();
                 Log.d("MyMainActivity", "indietro funziona");
                 break;
+            case R.id.button_change_img:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.READ_EXTERNAL_STORAGE)
+                            == PackageManager.PERMISSION_DENIED) {
+                        //permission not granted, request it.
+                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                        //show popup for runtime permission
+                        requestPermissions(permissions, PERMISSION_CODE);
+                    }
+                    else {
+                        //permission already granted
+                        pickImageFromGallery();
+                    }
+                }
+                else {
+                    //system on is less then marshamallow
+                    pickImageFromGallery();
+
+                }
 
 
 
@@ -89,6 +124,38 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
     }
 
+    private void pickImageFromGallery() {
+        //intent to pick image
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, IMAGE_PICK_CODE);
+    }
+
+    //handle result of runtime permission
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_CODE:{
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //permission was granted
+                    pickImageFromGallery();
+                }
+                else{
+                    //permission was denied
+                    Toast.makeText(getActivity(),"Permesso negato", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    //handle result of picked image
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            //Set image to image view
+            fotoprofilo.setImageURI(data.getData());
+        }
+    }
 
     public void modifica(){
             mRequestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
