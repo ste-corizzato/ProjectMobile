@@ -4,9 +4,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.icu.text.Collator;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +37,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+
 public class fragment_profile extends Fragment implements View.OnClickListener {
 
     public RequestQueue mRequestQueue = null;
@@ -46,6 +50,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
+    public String imgString;
 
 
     @Nullable
@@ -83,7 +88,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             case R.id.Modifica:
 
                 Log.d("fragment_profile", "modifica");
-                modifica();
+                modificaNome();
                 TextView tv = getActivity().findViewById(R.id.textName);
                 tv.setText(username_text);
 
@@ -98,7 +103,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 transaction2.commit();
                 Log.d("MyMainActivity", "indietro funziona");
                 break;
-            case R.id.button_change_img:
+
+                case R.id.button_change_img:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_DENIED) {
@@ -154,10 +160,60 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             //Set image to image view
             fotoprofilo.setImageURI(data.getData());
+            fotoprofilo.buildDrawingCache();
+            Bitmap bmap = fotoprofilo.getDrawingCache();
+            getEncoded64ImageStringFromBitmap(bmap);
+            ModificaImmagine();
+
         }
     }
 
-    public void modifica(){
+    private void ModificaImmagine() {
+
+            mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+            final String url = " https://ewserver.di.unimi.it/mobicomp/mostri/setprofile.php";
+
+            TextView tv = getView().findViewById(R.id.text_nome);
+            username_text = tv.getText().toString();
+
+
+            JSONObject jsonRequest = new JSONObject();
+            try {
+
+                jsonRequest.put("session_id", Model.getInstance().getSessionID());
+                jsonRequest.put("username", username_text);
+                jsonRequest.put("img", imgString);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            JsonObjectRequest getProfileRequest = new JsonObjectRequest(
+                    url,
+                    jsonRequest,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                            Model.getInstance().setUsername(username_text);
+                            Log.d("MainActivity", "Eseguito: " + response);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("MainActivity", "Error: " + error.toString());
+                        }
+                    });
+
+
+            mRequestQueue.add(getProfileRequest);
+
+
+
+
+    }
+
+    public void modificaNome(){
             mRequestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
             final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/setprofile.php";
 
@@ -198,6 +254,16 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
 
 
+
+    }
+
+
+    public void getEncoded64ImageStringFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
+        byte[] byteFormat = stream.toByteArray();
+        // get the base 64 string
+        imgString = Base64.encodeToString(byteFormat, Base64.NO_WRAP);
 
     }
 
