@@ -68,6 +68,7 @@ public class Model {
 
         private String sessionID;
         private String username;
+        private String imgUser;
         private String ImgObject;
         private ArrayList<Player> PlayersList = new ArrayList<>();
         private ArrayList<MapObject> ObjectList = new ArrayList<>();
@@ -92,6 +93,10 @@ public class Model {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public String getImgUser(){ return imgUser; }
+
+    public void setImgUser(String imgUser){ this.imgUser=imgUser; }
 
     public ArrayList<Player> getPlayerList() {
         return PlayersList;

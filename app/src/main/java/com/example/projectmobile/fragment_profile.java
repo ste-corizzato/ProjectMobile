@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.icu.text.Collator;
 import android.os.Build;
 import android.os.Bundle;
@@ -48,9 +49,11 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     Button cambiafoto;
     ImageView fotoprofilo;
 
+
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
     public String imgString;
+    Bitmap bm = null;
 
 
     @Nullable
@@ -59,13 +62,17 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
         View w= inflater.inflate(R.layout.fragment_fragment_profile, container, false);
 
+
         modifica= (Button) w.findViewById(R.id.Modifica);;
         modifica.setOnClickListener(this);
 
         fotoprofilo = w.findViewById(R.id.imageViewPicture);
         
+
         cambiafoto = w.findViewById(R.id.button_change_img);
         cambiafoto.setOnClickListener(this);
+
+
 
         return w;
 
@@ -74,11 +81,18 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     @Override
     public void onStart() {
         super.onStart();
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         Log.d("fragment_profile","nome utente");
         String text =Model.getInstance().getUsername();
+        Log.d("fragment_profile",""+text);
         TextView tv = getActivity().findViewById(R.id.text_nome);
         tv.setText(text);
-
 
     }
 
@@ -91,6 +105,18 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 modificaNome();
                 TextView tv = getActivity().findViewById(R.id.textName);
                 tv.setText(username_text);
+
+                ImageView image=getActivity().findViewById(R.id.imageView);
+
+                Bitmap bm = null;
+                bm = StringToBitMap(imgString);
+
+                if(bm==null) {
+                    image.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
+
+                }else {
+                    image.setImageBitmap(bm);   //MyPhoto is image control.
+                }
 
                 Log.d("fragment_profile", "indietro");
                 home newFragment2 = new home();
@@ -163,55 +189,12 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             fotoprofilo.buildDrawingCache();
             Bitmap bmap = fotoprofilo.getDrawingCache();
             getEncoded64ImageStringFromBitmap(bmap);
-            ModificaImmagine();
+            Model.getInstance().setImgUser(imgString);
 
         }
     }
 
-    private void ModificaImmagine() {
 
-            mRequestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
-            final String url = " https://ewserver.di.unimi.it/mobicomp/mostri/setprofile.php";
-
-            TextView tv = getView().findViewById(R.id.text_nome);
-            username_text = tv.getText().toString();
-
-
-            JSONObject jsonRequest = new JSONObject();
-            try {
-
-                jsonRequest.put("session_id", Model.getInstance().getSessionID());
-                jsonRequest.put("username", username_text);
-                jsonRequest.put("img", imgString);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            JsonObjectRequest getProfileRequest = new JsonObjectRequest(
-                    url,
-                    jsonRequest,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-
-                            Model.getInstance().setUsername(username_text);
-                            Log.d("MainActivity", "Eseguito: " + response);
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("MainActivity", "Error: " + error.toString());
-                        }
-                    });
-
-
-            mRequestQueue.add(getProfileRequest);
-
-
-
-
-    }
 
     public void modificaNome(){
             mRequestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
@@ -222,12 +205,17 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
 
 
+
             JSONObject jsonRequest = new JSONObject();
             try {
 
                 jsonRequest.put("session_id",Model.getInstance().getSessionID());
                 jsonRequest.put("username", username_text);
-                jsonRequest.put("img", img);
+                if(imgString==null) {
+                    jsonRequest.put("img", img);
+                }else{
+                    jsonRequest.put("img", imgString);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -254,6 +242,18 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
 
 
+
+    }
+
+    public Bitmap StringToBitMap (String encodedString) {
+        try {
+            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e) {
+            e.getMessage();
+            return null;
+        }
 
     }
 

@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void getProfileResponse(JSONObject response)  {
+    public void getProfileResponse(JSONObject response) {
 
 
         TextView nometv = findViewById(R.id.textName);
@@ -184,10 +184,17 @@ public class MainActivity extends AppCompatActivity {
         TextView exp = findViewById(R.id.textExp);
         ImageView img= findViewById(R.id.imageView);
 
+        try {
+            Model.getInstance().setImgUser(response.getString("img"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         Bitmap bm = null;
 
         try {
             bm = StringToBitMap(response.getString("img"));
+
             if(bm==null){
             }
             Log.d("MainActivity", response.getString("img"));
