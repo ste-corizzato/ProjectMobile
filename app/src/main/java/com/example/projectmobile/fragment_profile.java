@@ -67,7 +67,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         modifica.setOnClickListener(this);
 
         fotoprofilo = w.findViewById(R.id.imageViewPicture);
-        
+
 
         cambiafoto = w.findViewById(R.id.button_change_img);
         cambiafoto.setOnClickListener(this);
