@@ -70,6 +70,8 @@ public class Model {
         private String username;
         private String imgUser;
         private String ImgObject;
+        private double LatUser;
+        private double LonUser;
         private ArrayList<Player> PlayersList = new ArrayList<>();
         private ArrayList<MapObject> ObjectList = new ArrayList<>();
 
@@ -97,6 +99,15 @@ public class Model {
     public String getImgUser(){ return imgUser; }
 
     public void setImgUser(String imgUser){ this.imgUser=imgUser; }
+
+    public Double getLatUser(){ return LatUser; }
+
+    public void setLatUser(Double LatUser){ this.LatUser=LatUser; }
+
+    public Double getLonUser(){ return LonUser; }
+
+    public void setLonUser(Double LatUser){ this.LonUser=LonUser; }
+
 
     public ArrayList<Player> getPlayerList() {
         return PlayersList;

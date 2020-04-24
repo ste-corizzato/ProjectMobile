@@ -1,11 +1,14 @@
 package com.example.projectmobile;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -13,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.volley.RequestQueue;
@@ -20,6 +24,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.mapbox.android.core.location.LocationEngine;
+import com.mapbox.android.core.location.LocationEngineCallback;
+import com.mapbox.android.core.location.LocationEngineProvider;
+import com.mapbox.android.core.location.LocationEngineRequest;
+import com.mapbox.android.core.location.LocationEngineResult;
+import com.mapbox.android.core.permissions.PermissionsManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,6 +49,14 @@ public class Object_detail extends AppCompatActivity {
     private int id;
 
     private String died,lp,exp;
+
+    private Location currentLocation;
+    private Location ObjectLocation;
+    float distanceInMeters=0;
+
+
+
+
 
 
 
@@ -56,7 +76,12 @@ public class Object_detail extends AppCompatActivity {
 
 
 
+
+
     }
+
+
+
 
 
     @Override
@@ -96,9 +121,20 @@ public class Object_detail extends AppCompatActivity {
 
                 Log.d("Object_detail", "Immagine: "+Model.getInstance().getImgObject());
 
+                currentLocation=new Location ("");
+                currentLocation.setLatitude(Model.getInstance().getLatUser());
+                currentLocation.setLongitude(Model.getInstance().getLonUser());
 
+                ObjectLocation = new Location("");
+                ObjectLocation.setLatitude(myMapObjectsModel.get(i).getLat());
+                ObjectLocation.setLongitude(myMapObjectsModel.get(i).getLon());
 
+                distanceInMeters = currentLocation.distanceTo(ObjectLocation);
 
+                if(distanceInMeters>50){
+                    Button btn = (Button) findViewById(R.id.fight);
+                    btn.setEnabled(false);
+                }
 
             }
 

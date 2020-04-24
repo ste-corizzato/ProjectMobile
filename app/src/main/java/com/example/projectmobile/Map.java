@@ -220,6 +220,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     @Override
     public void onSuccess(LocationEngineResult result) {
         currentLocation = result.getLastLocation();
+        Model.getInstance().setLatUser(currentLocation.getLatitude());
+        Model.getInstance().setLonUser(currentLocation.getLongitude());
         Log.d("Map", "onSuccess: "+currentLocation);
         if (currentLocation == null) {
             Toast.makeText(this, GPS_ERROR, Toast.LENGTH_LONG).show();
