@@ -124,12 +124,15 @@ public class Object_detail extends AppCompatActivity {
                 currentLocation=new Location ("");
                 currentLocation.setLatitude(Model.getInstance().getLatUser());
                 currentLocation.setLongitude(Model.getInstance().getLonUser());
+                Log.d("Object_detail", "Lomngitudine corrente" +Model.getInstance().getLatUser());
 
                 ObjectLocation = new Location("");
                 ObjectLocation.setLatitude(myMapObjectsModel.get(i).getLat());
                 ObjectLocation.setLongitude(myMapObjectsModel.get(i).getLon());
 
                 distanceInMeters = currentLocation.distanceTo(ObjectLocation);
+
+                Log.d("Object_detail", ""+distanceInMeters);
 
                 if(distanceInMeters>50){
                     Button btn = (Button) findViewById(R.id.fight);

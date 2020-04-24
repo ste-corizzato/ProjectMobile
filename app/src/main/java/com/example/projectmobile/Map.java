@@ -404,6 +404,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
 
     public void onClickButton(View view) {
+        Model.getInstance().setLatUser(currentLocation.getLatitude());
+        Model.getInstance().setLonUser(currentLocation.getLongitude());
         CameraPosition position = new CameraPosition.Builder()
                 .target(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
                 .zoom(16.5)

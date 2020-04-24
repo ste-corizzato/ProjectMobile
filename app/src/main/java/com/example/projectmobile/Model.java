@@ -106,7 +106,7 @@ public class Model {
 
     public Double getLonUser(){ return LonUser; }
 
-    public void setLonUser(Double LatUser){ this.LonUser=LonUser; }
+    public void setLonUser(Double LonUser){ this.LonUser=LonUser; }
 
 
     public ArrayList<Player> getPlayerList() {
