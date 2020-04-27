@@ -88,11 +88,17 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("fragment_profile","nome utente");
+
         String text =Model.getInstance().getUsername();
-        Log.d("fragment_profile",""+text);
         TextView tv = getActivity().findViewById(R.id.text_nome);
         tv.setText(text);
+
+        ImageView i=getActivity().findViewById(R.id.imageViewPicture);
+        String imgUser=Model.getInstance().getImgUser();
+        Bitmap bm= StringToBitMap(imgUser);
+        i.setImageBitmap(bm);
+
+
 
     }
 
@@ -110,6 +116,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
                 Bitmap bm = null;
                 bm = StringToBitMap(imgString);
+                Model.getInstance().setImgUser(imgString);
 
                 if(bm==null) {
                     image.setImageDrawable(getResources().getDrawable(R.drawable.avatar));

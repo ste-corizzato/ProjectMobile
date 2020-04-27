@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 nometv.setText(response.getString("username"));
+                Model.getInstance().setUsername(response.getString("username"));
                 nome = nometv.getText().toString();
 
             } catch (JSONException e) {
