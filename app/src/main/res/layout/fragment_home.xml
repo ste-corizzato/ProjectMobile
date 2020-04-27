@@ -10,30 +10,38 @@
 
     <Button
         android:id="@+id/button_map"
-        android:layout_width="277dp"
-        android:layout_height="98dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="58dp"
         android:layout_marginEnd="58dp"
         android:layout_marginBottom="10dp"
+        android:background="@android:color/black"
         android:onClick="onClick"
         android:text="PLAY!"
+        android:textColor="#36FB00"
         android:textSize="46sp"
         app:layout_constraintBottom_toTopOf="@+id/button_leaderboards"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHeight_percent="0.1248"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.7048" />
 
     <Button
         android:id="@+id/button_leaderboards"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="237dp"
-        android:layout_height="64dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="78dp"
         android:layout_marginEnd="78dp"
         android:layout_marginBottom="130dp"
+        android:background="@android:color/black"
         android:onClick="onClick"
         android:text="LEADERBOARDS"
+        android:textColor="#FFD000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHeight_percent="0.0815"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent="0.6030" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
