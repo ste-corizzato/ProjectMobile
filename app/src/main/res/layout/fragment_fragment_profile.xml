@@ -34,16 +34,18 @@
         android:layout_marginStart="86dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="86dp"
+        android:background="@drawable/button_settings"
         android:backgroundTint="#000000"
+        android:backgroundTintMode="add"
         android:onClick="onClick"
         android:text="SAVE"
-        android:textColor="#00FFC3"
+        android:textColor="#00FFE5"
         android:textSize="26sp"
-        app:layout_constraintWidth_percent="0.5623"
-        app:layout_constraintHeight_percent="0.0700"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.0700"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_nome" />
+        app:layout_constraintTop_toBottomOf="@+id/text_nome"
+        app:layout_constraintWidth_percent="0.5623" />
 
     <ImageView
         android:id="@+id/imageViewPicture"
@@ -68,15 +70,17 @@
         android:layout_marginStart="131dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="131dp"
+        android:background="@drawable/button_settings"
         android:backgroundTint="#000000"
+        android:backgroundTintMode="add"
         android:onClick="onClick"
         android:text="Change picture"
         android:textColor="#00FFE5"
         android:textSize="12sp"
-        app:layout_constraintHeight_percent="0.0611"
-        app:layout_constraintWidth_percent="0.33334"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.0611"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewPicture" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPicture"
+        app:layout_constraintWidth_percent="0.33334" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
