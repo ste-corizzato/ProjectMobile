@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/common_google_signin_btn_text_light_pressed">
 
 
     <TextView
@@ -14,8 +15,10 @@
         android:layout_marginStart="167dp"
         android:layout_marginTop="183dp"
         android:layout_marginEnd="167dp"
+        android:fontFamily="@font/game"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,8 +30,10 @@
         android:layout_marginStart="167dp"
         android:layout_marginTop="151dp"
         android:layout_marginEnd="167dp"
+        android:fontFamily="@font/game"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -40,12 +45,13 @@
         android:layout_marginStart="167dp"
         android:layout_marginTop="116dp"
         android:layout_marginEnd="167dp"
+        android:fontFamily="@font/game"
         android:text="TextView"
         android:textAlignment="center"
+        android:textColor="#FFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
 
     <View
@@ -68,6 +74,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="163dp"
         android:layout_marginBottom="15dp"
+        android:background="@drawable/button_settings"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

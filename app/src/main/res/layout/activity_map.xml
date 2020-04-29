@@ -8,26 +8,35 @@
     tools:context=".Map">
 
 
+    <com.mapbox.mapboxsdk.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.mapbox.mapboxsdk.maps.MapView>
+
+    <Button
+        android:id="@+id/PointDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_map"
+        android:backgroundTint="#000"
+        android:backgroundTintMode="add"
+        android:fontFamily="@font/game"
+        android:onClick="onClickButton"
+        android:text="Point the display"
+        android:textColor="#FFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/PointDisplay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#3F51B5"
-            android:onClick="onClickButton"
-            android:text="Point the display" />
-
-        <com.mapbox.mapboxsdk.maps.MapView
-            android:id="@+id/mapView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-        </com.mapbox.mapboxsdk.maps.MapView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
