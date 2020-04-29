@@ -119,7 +119,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 Model.getInstance().setImgUser(imgString);
 
                 if(bm==null) {
-                    image.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
+                    image.setImageDrawable(getResources().getDrawable(R.drawable.knight_2));
 
                 }else {
                     image.setImageBitmap(bm);   //MyPhoto is image control.

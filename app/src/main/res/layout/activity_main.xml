@@ -35,8 +35,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.3307"
-        app:srcCompat="@drawable/avatar"
-        tools:srcCompat="@drawable/avatar"
+        app:srcCompat="@drawable/knight_2"
+        tools:srcCompat="@drawable/knight_2"
         tools:visibility="visible" />
 
 

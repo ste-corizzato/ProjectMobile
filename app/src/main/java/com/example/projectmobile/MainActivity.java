@@ -202,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         if(bm==null) {
-            img.setImageDrawable(getResources().getDrawable(R.drawable.avatar));
+            img.setImageDrawable(getResources().getDrawable(R.drawable.knight_2));
 
         }else {
             img.setImageBitmap(bm);   //MyPhoto is image control.

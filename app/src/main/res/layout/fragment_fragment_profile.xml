@@ -58,7 +58,7 @@
         android:layout_marginStart="136dp"
         android:layout_marginTop="256dp"
         android:layout_marginEnd="136dp"
-        android:src="@drawable/avatar"
+        android:src="@drawable/knight_2"
         app:layout_constraintHeight_percent="0.1541"
         app:layout_constraintWidth_percent="0.3078"
         app:layout_constraintEnd_toEndOf="parent"

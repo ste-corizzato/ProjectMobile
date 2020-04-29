@@ -129,8 +129,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
                         Log.d("Map", "style");
 
-                        style.addImage(MONSTER_MARKER_IMAGE_ID,getDrawable(R.drawable.dragon));
-                        style.addImage(CANDY_MARKER_IMAGE_ID,getDrawable(R.drawable.candy));
+                        style.addImage(MONSTER_MARKER_IMAGE_ID,getDrawable(R.drawable.dragonfix4));
+                        style.addImage(CANDY_MARKER_IMAGE_ID,getDrawable(R.drawable.candyfix4));
 
                         symbolManager = new SymbolManager(mapView, mapboxMap, style);
                         symbolManager.addClickListener(new OnSymbolClickListener(){

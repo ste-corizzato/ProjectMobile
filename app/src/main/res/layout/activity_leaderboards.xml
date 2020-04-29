@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_google_signin_btn_text_light_pressed"
+    android:background="@android:color/transparent"
+    android:backgroundTintMode="src_over"
     tools:context=".Leaderboards">
 
     <FrameLayout
-        android:layout_width="398dp"
+        android:id="@+id/frameLayout"
+        android:layout_width="393dp"
         android:layout_height="785dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,12 +19,34 @@
 
 
         />
-    ]]></FrameLayout>
+
+
+
+
+
+
+        ]]></FrameLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/common_google_signin_btn_text_light_pressed"
+        android:backgroundTintMode="screen"
+        android:fontFamily="@font/game"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="LEADERBOARDS"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
