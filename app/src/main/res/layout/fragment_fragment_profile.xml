@@ -58,13 +58,14 @@
         android:layout_marginStart="136dp"
         android:layout_marginTop="256dp"
         android:layout_marginEnd="136dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/knight_2"
-        app:layout_constraintHeight_percent="0.1541"
-        app:layout_constraintWidth_percent="0.3078"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1541"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.3078" />
 
     <Button
         android:id="@+id/button_change_img"
