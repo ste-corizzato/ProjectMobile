@@ -33,12 +33,18 @@
 
     <Button
         android:id="@+id/buttonToProfile"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="Profile"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/button_fight"
+        android:backgroundTint="#000"
+        android:backgroundTintMode="add"
+        android:fontFamily="@font/game"
+        android:text="Back"
+        android:textColor="#fff"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/linearLayout"

@@ -9,15 +9,13 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="677dp"
-        android:layout_height="544dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.883"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.758">
+        app:layout_constraintTop_toTopOf="parent">
 
     </FrameLayout>
 
@@ -27,10 +25,8 @@
         android:layout_height="0dp"
         android:layout_marginStart="27dp"
         android:layout_marginTop="37dp"
-        android:layout_marginBottom="38dp"
         android:scaleType="centerCrop"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/textLife"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -42,10 +38,10 @@
 
     <ImageButton
         android:id="@+id/btnMod"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="171dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="47dp"
         android:background="@drawable/button_settings"
         android:backgroundTint="#000000"
         android:backgroundTintMode="add"
@@ -53,87 +49,87 @@
         android:scaleType="fitCenter"
         android:src="@drawable/pencil2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textName" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textName"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="27dp"
-        android:text="NomeUtente"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="67dp"
         android:fontFamily="@font/game"
+        android:text="NomeUtente"
         android:textAlignment="viewStart"
         android:textColor="#FFFFFF"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.0445"
+        app:layout_constraintHeight_percent="0.07"
+        app:layout_constraintStart_toEndOf="@id/imageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.4936" />
+        app:layout_constraintWidth_percent="0.43" />
 
     <TextView
         android:id="@+id/textLife"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="97dp"
+        android:fontFamily="@font/game"
         android:text="LIFE"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:fontFamily="@font/game"
-        android:textSize="11sp"
+        android:textSize="18sp"
         app:layout_constraintHeight_percent="0.0254"
         app:layout_constraintStart_toEndOf="@+id/textViewLife"
-        app:layout_constraintTop_toBottomOf="@+id/btnMod"
+        app:layout_constraintTop_toBottomOf="@id/textName"
         app:layout_constraintWidth_percent="0.1272" />
 
     <TextView
         android:id="@+id/textExp"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="97dp"
         android:layout_marginEnd="35dp"
+        android:fontFamily="@font/game"
         android:text="EXP"
         android:textAlignment="center"
-        android:fontFamily="@font/game"
         android:textColor="#FFFFFF"
-        android:textSize="11sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.0254"
-        app:layout_constraintTop_toBottomOf="@+id/btnMod"
+        app:layout_constraintTop_toBottomOf="@id/textName"
         app:layout_constraintWidth_percent="0.1272" />
 
     <TextView
         android:id="@+id/textViewLife"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="97dp"
         android:fontFamily="@font/game"
         android:text="LIFE:"
         android:textAlignment="center"
         android:textColor="#ffffff"
-        android:textSize="11sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintHeight_percent="0.0254"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMod"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@id/textName"
         app:layout_constraintWidth_percent="0.11" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="97dp"
         android:fontFamily="@font/game"
         android:text="EXP:"
         android:textAlignment="center"
         android:textColor="#FFFFFF"
-        android:textSize="11sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/textExp"
         app:layout_constraintHeight_percent="0.0254"
-        app:layout_constraintTop_toBottomOf="@+id/btnMod"
+        app:layout_constraintTop_toBottomOf="@id/textName"
         app:layout_constraintWidth_percent="0.11" />
 
 
