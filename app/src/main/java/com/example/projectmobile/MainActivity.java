@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment_home).commit();
 
         myModel=Model.getInstance();
+        myModel.initModel(this);
 
     }
 
@@ -193,8 +194,9 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bm = null;
 
         try {
-            bm = StringToBitMap(response.getString("img"));
+            //bm = StringToBitMap(response.getString("img"));
 
+            Model.getInstance().StringToBitMap(response.getString("img"));
             if(bm==null){
             }
             Log.d("MainActivity", response.getString("img"));
@@ -250,17 +252,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public Bitmap StringToBitMap (String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
 
-    }
+
 
         @Override
     protected void onResume() {

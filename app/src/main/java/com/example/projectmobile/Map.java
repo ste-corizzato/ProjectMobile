@@ -102,6 +102,14 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
+        findViewById(R.id.buttonToProfile).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Testo per tornare al profilo
+                Intent intent =new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
@@ -113,6 +121,10 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     @Override
     public void onPermissionResult(boolean granted) {
 
+    }
+
+    public void onBackPressed() {
+       
     }
 
     @Override
@@ -153,13 +165,19 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
                         symbolManager.setIconTranslate(new Float[]{-4f,5f});
                         symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
 
-                        chiamataServerOggetti();
+                        if(Model.getInstance().getMapObjectList().size()==0){
+                            chiamataServerOggetti();
+                        }
+                        else{
+                            for(int i=0; i<myMapObjectsModel.size(); i++){
+                                onNewMapObjectsAdded(myMapObjectsModel.get(i));
+                            }
+                        }
 
 
 
-
-                    }
-                });
+                        }
+                    });
     }
 
     @SuppressWarnings({"MissingPermission"})

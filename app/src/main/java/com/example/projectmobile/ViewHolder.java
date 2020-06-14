@@ -39,7 +39,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
 
 
-        Bitmap bm = StringToBitMap(player.getImg());
+        Bitmap bm = Model.getInstance().StringToBitMap(player.getImg());
         if(bm==null) {
             img.setImageResource(R.drawable.knight_2);
 
@@ -52,16 +52,6 @@ public class ViewHolder extends RecyclerView.ViewHolder {
 
 
 
-    public Bitmap StringToBitMap (String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
 
-    }
 
 }

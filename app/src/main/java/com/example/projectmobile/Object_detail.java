@@ -71,13 +71,6 @@ public class Object_detail extends AppCompatActivity {
         s=myIntent.getStringExtra("IdObject");
         id=Integer.parseInt(s);
         Log.d("Object_detail", ""+id);
-
-        getImageObjectRequest();
-
-
-
-
-
     }
 
 
@@ -104,10 +97,14 @@ public class Object_detail extends AppCompatActivity {
         TextView size = findViewById(R.id.Size);
         Button b=findViewById(R.id.fight);
 
+        ImageView img= findViewById(R.id.imageObj);
+        img.setImageBitmap(Model.getInstance().getMapObjImgById(Integer.toString(id)));
 
 
         for(int i =0; i<myMapObjectsModel.size(); i++){
             if(myMapObjectsModel.get(i).getIdObject()==id){
+
+
 
                 if(myMapObjectsModel.get(i).getType().equals("CA")){
                     type.setText("CARAMELLA");
@@ -179,7 +176,7 @@ public class Object_detail extends AppCompatActivity {
 
                         Log.d("Map", "Eseguito: " + response);
                         getImgResponse(response);
-                        Bitmap bm = StringToBitMap(immagine);
+                        Bitmap bm = Model.getInstance().StringToBitMap(immagine);
                         Log.d("Object_detail", ""+bm);
                         img.setImageBitmap(bm);
 
@@ -214,17 +211,6 @@ public class Object_detail extends AppCompatActivity {
 
     }
 
-    public Bitmap StringToBitMap (String encodedString) {
-        try {
-            byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
-            Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
-            return bitmap;
-        } catch (Exception e) {
-            e.getMessage();
-            return null;
-        }
-
-    }
 
 
 
