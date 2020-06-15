@@ -40,14 +40,16 @@
         android:id="@+id/btnMod"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="47dp"
         android:background="@drawable/button_settings"
         android:backgroundTint="#000000"
         android:backgroundTintMode="add"
         android:onClick="onClick"
         android:scaleType="fitCenter"
         android:src="@drawable/pencil2"
-        tools:layout_editor_absoluteX="783dp"
-        tools:layout_editor_absoluteY="67dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textName"
