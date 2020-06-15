@@ -18,6 +18,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import com.mapbox.android.gestures.MoveGestureDetector;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
@@ -57,7 +58,7 @@ import org.json.JSONObject;
 
 import static com.mapbox.mapboxsdk.style.layers.Property.ICON_ROTATION_ALIGNMENT_VIEWPORT;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener, LocationEngineCallback<LocationEngineResult>, OnSymbolLongClickListener{
+public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style.OnStyleLoaded, PermissionsListener, LocationEngineCallback<LocationEngineResult>, OnSymbolLongClickListener, OnSymbolClickListener, MapboxMap.OnMoveListener {
 
     // Variabili per inizializzare la mappa
     private MapboxMap mapboxMap;
@@ -124,14 +125,17 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     }
 
     public void onBackPressed() {
-       
+
     }
 
     @Override
     public void onMapReady(@NonNull final MapboxMap mapboxMap) {
         this.mapboxMap = mapboxMap;
+        this.mapboxMap.addOnMoveListener(this);
+        mapboxMap.setStyle(Style.TRAFFIC_NIGHT, this);
 
-        mapboxMap.setStyle(Style.TRAFFIC_NIGHT,
+
+        /*mapboxMap.setStyle(Style.TRAFFIC_NIGHT,
                 new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
@@ -166,7 +170,11 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
                         symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
 
                         if(Model.getInstance().getMapObjectList().size()==0){
+                            Log.d("Map", "c'è");
                             chiamataServerOggetti();
+                            for(int i=0; i<myMapObjectsModel.size(); i++){
+                                onNewMapObjectsAdded(myMapObjectsModel.get(i));
+                            }
                         }
                         else{
                             for(int i=0; i<myMapObjectsModel.size(); i++){
@@ -176,8 +184,37 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
 
 
-                        }
-                    });
+                    }
+                });
+
+                */
+
+    }
+
+    public void onStyleLoaded(@NonNull Style style) {
+        enableLocationComponent(style);
+        initLocationEngine();
+
+        style.addImage(MONSTER_MARKER_IMAGE_ID,getDrawable(R.drawable.dragonfix4));
+        style.addImage(CANDY_MARKER_IMAGE_ID,getDrawable(R.drawable.candyfix4));
+
+
+        symbolManager = new SymbolManager(mapView, mapboxMap, style);
+        symbolManager.addClickListener(this);
+        symbolManager.setIconAllowOverlap(true);
+        symbolManager.setIconTranslate(new Float[]{-4f,5f});
+        symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
+        //chiamataServerOggetti();
+        if(Model.getInstance().getMapObjectList().size()==0){
+            chiamataServerOggetti();
+        }
+        else{
+            for(int i=0; i<myMapObjectsModel.size(); i++){
+                onNewMapObjectsAdded(myMapObjectsModel.get(i));
+            }
+        }
+
+
     }
 
     @SuppressWarnings({"MissingPermission"})
@@ -227,7 +264,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-            permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        permissionsManager.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 
@@ -339,39 +376,35 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     protected void onStart() {
         super.onStart();
         mapView.onStart();
-        if(this.mapboxMap != null && mapboxMap.getStyle() != null){
-            symbolManager.deleteAll();
-            Log.d("Map", "onStart: map objects retrieved again");
-        }
-        chiamataServerOggetti();
+        Log.d("Map", "onstart");
+        mapView.setVisibility(View.VISIBLE);
 
 
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mapView.onResume();
 
     }
 
     @Override
     protected void onPause() {
+        Log.d("Map", "onPause: ");
         super.onPause();
         mapView.onPause();
 
+        symbolManager.removeClickListener(this);
+        mapView.setVisibility(View.GONE);
     }
 
     @Override
     protected void onStop() {
+        Log.d("Map", "onStop: ");
         super.onStop();
-
+        // Prevent leaks
         Log.d("Map", "onStop: "+locationEngine);
         if (locationEngine != null) {
             stopLocationEngine();
         }
         mapView.onStop();
     }
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -432,6 +465,34 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, Permis
     }
 
 
+    @Override
+    public void onAnnotationClick(Symbol symbol) {
+        Log.d("Object_detail", ""+getObjectIdFromSymbol(symbol));
+        idRequest=getObjectIdFromSymbol(symbol);
+        Intent intent2 = new Intent(getApplicationContext(), Object_detail.class);
+        intent2.putExtra("IdObject", Integer.toString(getObjectIdFromSymbol(symbol)));
+
+        startActivity(intent2);
+
+        this.onPause();
+    }
+
+    @Override
+    public void onMoveBegin(@NonNull MoveGestureDetector detector) {
+        if (locationEngine != null) {
+            Log.d("Map", "onMoveBegin: ");
+            stopLocationEngine();
+        }
+
+    }
+
+    @Override
+    public void onMove(@NonNull MoveGestureDetector detector) {
+
+    }
+
+    @Override
+    public void onMoveEnd(@NonNull MoveGestureDetector detector) {
+
+    }
 }
-
-
