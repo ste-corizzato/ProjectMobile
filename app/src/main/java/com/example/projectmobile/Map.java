@@ -140,35 +140,22 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
                         enableLocationComponent(style);
-
-
-
                         Log.d("Map", "style");
-
                         style.addImage(MONSTER_MARKER_IMAGE_ID,getDrawable(R.drawable.dragonfix4));
                         style.addImage(CANDY_MARKER_IMAGE_ID,getDrawable(R.drawable.candyfix4));
-
                         symbolManager = new SymbolManager(mapView, mapboxMap, style);
                         symbolManager.addClickListener(new OnSymbolClickListener(){
-
                             public void onAnnotationClick(Symbol symbol) {
                                 Log.d("Object_detail", ""+getObjectIdFromSymbol(symbol));
                                 idRequest=getObjectIdFromSymbol(symbol);
                                 Intent intent2 = new Intent(getApplicationContext(), Object_detail.class);
                                 intent2.putExtra("IdObject", Integer.toString(getObjectIdFromSymbol(symbol)));
-
                                 startActivity(intent2);
-
-
-
-
-
                             }
                         });
                         symbolManager.setIconAllowOverlap(true);
                         symbolManager.setIconTranslate(new Float[]{-4f,5f});
                         symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
-
                         if(Model.getInstance().getMapObjectList().size()==0){
                             Log.d("Map", "c'è");
                             chiamataServerOggetti();
@@ -181,12 +168,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
                                 onNewMapObjectsAdded(myMapObjectsModel.get(i));
                             }
                         }
-
-
-
                     }
                 });
-
                 */
 
     }
@@ -205,14 +188,16 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
         symbolManager.setIconTranslate(new Float[]{-4f,5f});
         symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
         //chiamataServerOggetti();
-        if(Model.getInstance().getMapObjectList().size()==0){
+        /*if(Model.getInstance().getMapObjectList().size()==0){
             chiamataServerOggetti();
-        }
-        else{
+
+        }*/
+
             for(int i=0; i<myMapObjectsModel.size(); i++){
+                Log.d("Map", "eccoci");
                 onNewMapObjectsAdded(myMapObjectsModel.get(i));
             }
-        }
+
 
 
     }
@@ -312,7 +297,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
                 .withIconSize(0.04f));
     }
 
-    private void chiamataServerOggetti(){
+    /*private void chiamataServerOggetti(){
         mRequestQueue = Volley.newRequestQueue(getApplicationContext());
         final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/getmap.php";
         Log.d("Map", "funziona");
@@ -361,6 +346,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
 
 
     }
+    */
 
 
     private JsonElement createIdJsonElement(int id) {

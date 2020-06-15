@@ -172,10 +172,59 @@ public class MainActivity extends AppCompatActivity {
 
                 mRequestQueue.add(getProfileRequest);
 
+        if(Model.getInstance().getMapObjectList().size()==0){
+            chiamataServerOggettiMappa();
+
+        }
+
+    }
+    private void chiamataServerOggettiMappa(){
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/getmap.php";
+        Log.d("Map", "funziona");
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("session_id", Model.getInstance().getSessionID());
+            Log.d("Map", "Eseguito: "+Model.getInstance().getSessionID());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest getMapRequest = new JsonObjectRequest(
+                url,
+                jsonRequest,
+
+
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Model.getInstance().MapObject(response);
+                        Log.d("Map", "Eseguito: " + response);
+
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Map", "Error: " + error.toString());
+                    }
+                });
+
+
+        mRequestQueue.add(getMapRequest);
 
 
 
     }
+
+
 
     public void getProfileResponse(JSONObject response) {
 
@@ -275,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
 
 
