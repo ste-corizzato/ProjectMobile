@@ -9,11 +9,11 @@
 
     <FrameLayout
         android:id="@+id/fragment_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="708dp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -23,14 +23,14 @@
         android:id="@+id/imageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="27dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="37dp"
         android:scaleType="centerCrop"
         android:visibility="visible"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.3307"
+        app:layout_constraintWidth_percent="0.3000"
         app:srcCompat="@drawable/knight_2"
         tools:srcCompat="@drawable/knight_2"
         tools:visibility="visible" />
@@ -131,6 +131,32 @@
         app:layout_constraintHeight_percent="0.0254"
         app:layout_constraintTop_toBottomOf="@id/textName"
         app:layout_constraintWidth_percent="0.11" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@color/common_google_signin_btn_text_light_pressed"
+        android:backgroundTintMode="screen"
+        android:fontFamily="@font/game"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="LEADERBOARDS"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="315dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

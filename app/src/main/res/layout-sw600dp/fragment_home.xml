@@ -13,9 +13,9 @@
         android:id="@+id/button_map"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="58dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginStart="154dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginBottom="258dp"
         android:background="@drawable/button_play"
         android:backgroundTint="#000000"
         android:backgroundTintMode="add"
@@ -24,20 +24,19 @@
         android:text="PLAY!"
         android:textColor="#36FB00"
         android:textSize="68sp"
-        app:layout_constraintBottom_toTopOf="@+id/button_leaderboards"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1248"
+        app:layout_constraintHeight_percent="0.09"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.7048" />
+        app:layout_constraintWidth_percent="0.6" />
 
     <Button
         android:id="@+id/button_leaderboards"
         style="@style/Widget.AppCompat.Button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="78dp"
-        android:layout_marginEnd="78dp"
-        android:layout_marginBottom="150dp"
+        android:layout_width="86dp"
+        android:layout_height="84dp"
+        android:layout_marginStart="636dp"
+        android:layout_marginBottom="508dp"
         android:background="@drawable/button_leaderboards"
         android:backgroundTint="#000000"
         android:backgroundTintMode="add"
@@ -46,10 +45,11 @@
         android:text="LEADERBOARDS"
         android:textColor="#FFD000"
         android:textSize="24sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.0815"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.6030" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

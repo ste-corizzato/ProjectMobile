@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -323,7 +325,14 @@ public class MainActivity extends AppCompatActivity {
             getPlayerRequest();
         }
 
-    }
+            Log.d("Leaderboards", "" +Model.getInstance().getPlayerList().size());
+            RecyclerView recyclerView = findViewById(R.id.recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            MyAdapter adapter = new MyAdapter(this, this,Model.getInstance().getPlayerList());
+            recyclerView.setAdapter(adapter);
+        }
+
+
 
 
 
