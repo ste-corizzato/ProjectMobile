@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintL"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00DF0A0A"
@@ -12,9 +13,8 @@
         style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="86dp"
-        android:layout_marginEnd="86dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="45dp"
         android:ems="10"
         android:fontFamily="@font/game"
         android:hint="CHANGE YOUR NAME"
@@ -26,7 +26,6 @@
         app:layout_constraintBottom_toTopOf="@+id/Modifica"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.0573"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.5623" />
 
     <Button
@@ -34,9 +33,8 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="168dp"
-        android:layout_marginEnd="168dp"
-        android:layout_marginBottom="82dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="200dp"
         android:background="@drawable/button_settings"
         android:backgroundTint="#000000"
         android:backgroundTintMode="add"
@@ -48,32 +46,28 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.09"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.5623" />
 
     <ImageView
         android:id="@+id/imageViewPicture"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="307dp"
-        android:layout_marginEnd="307dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="11dp"
         android:scaleType="centerCrop"
         android:src="@drawable/knight_2"
         app:layout_constraintBottom_toTopOf="@+id/button_change_img"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintWidth_percent="0.2" />
+        app:layout_constraintWidth_percent="0.18" />
 
     <Button
         android:id="@+id/button_change_img"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="0dp"
+        android:layout_width="145dp"
         android:layout_height="0dp"
-        android:layout_marginStart="131dp"
-        android:layout_marginEnd="131dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginStart="96dp"
+        android:layout_marginBottom="200dp"
         android:background="@drawable/button_settings"
         android:backgroundTint="#000000"
         android:backgroundTintMode="add"
@@ -82,9 +76,8 @@
         android:text="Change picture"
         android:textColor="#00FFE5"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/text_nome"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.0611"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_percent="0.09"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent="0.33334" />
 
