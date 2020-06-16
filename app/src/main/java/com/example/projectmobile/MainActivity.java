@@ -7,13 +7,18 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -51,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         myModel=Model.getInstance();
         myModel.initModel(this);
+
+
 
     }
 
@@ -97,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        Log.d("MainActivity","nome disp" +getDeviceName());
 
 
     }
@@ -325,11 +333,36 @@ public class MainActivity extends AppCompatActivity {
             getPlayerRequest();
         }
 
-            Log.d("Leaderboards", "" +Model.getInstance().getPlayerList().size());
-            RecyclerView recyclerView = findViewById(R.id.recyclerView);
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-            MyAdapter adapter = new MyAdapter(this, this,Model.getInstance().getPlayerList());
-            recyclerView.setAdapter(adapter);
+            
+
+        }
+
+    public String getDeviceName() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.toLowerCase().startsWith(manufacturer.toLowerCase())) {
+            return capitalize(model);
+
+        } else {
+            return capitalize(manufacturer) + " " + model;
+
+        }
+    }
+
+    String g=getDeviceName();
+
+
+
+        private String capitalize(String s) {
+            if (s == null || s.length() == 0) {
+                return "";
+            }
+            char first = s.charAt(0);
+            if (Character.isUpperCase(first)) {
+                return s;
+            } else {
+                return Character.toUpperCase(first) + s.substring(1);
+            }
         }
 
 
@@ -339,4 +372,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-}
+
+
+    }
