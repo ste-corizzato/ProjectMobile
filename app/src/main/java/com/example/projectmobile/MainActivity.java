@@ -295,9 +295,7 @@ public class MainActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.btnMod:
-
                 fragment_profile newFragment = new fragment_profile();
-
                 FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
 
                 ft1.replace(R.id.fragment_container, newFragment);
@@ -307,14 +305,28 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("MyMainActivity", "impostazioni funziona");
 
                 break;
+
+            case R.id.buttonLeaderboards:
+                Log.d("MyMainActivity", "leaderbords tablet");
+
+                RecyclerView recyclerView = findViewById(R.id.recyclerView);
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                MyAdapter adapter = new MyAdapter(this, this,Model.getInstance().getPlayerList());
+                recyclerView.setAdapter(adapter);
+
         }
+
     }
 
+    //phone: Google Android SDK built for x86
+    //tablet:
 
 
 
 
-        @Override
+
+
+    @Override
     protected void onResume() {
         super.onResume();
         Log.d("MainActivity", "onResume");

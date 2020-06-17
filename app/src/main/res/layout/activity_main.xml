@@ -63,6 +63,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textName" />
 
+    <Button
+        android:id="@+id/buttonLeaderboards"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
+        android:background="@drawable/button_leaderboards"
+        android:backgroundTint="#000000"
+        android:backgroundTintMode="add"
+        android:fontFamily="@font/game"
+        android:onClick="onClick"
+        android:text="Leade"
+        android:textColor="@android:color/holo_orange_light"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/btnMod"
+        app:layout_constraintTop_toTopOf="@id/btnMod" />
+
     <TextView
         android:id="@+id/textName"
         android:layout_width="0dp"
