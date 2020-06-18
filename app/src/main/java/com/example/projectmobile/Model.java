@@ -43,6 +43,7 @@ public class Model {
         Log.d("Leaderboards", "populate model");
         try {
 
+
             JSONArray playersJSON = serverResponse.getJSONArray("ranking");
             if(PlayersList.size()==0){
             for (int i = 0; i < playersJSON.length(); i++) {

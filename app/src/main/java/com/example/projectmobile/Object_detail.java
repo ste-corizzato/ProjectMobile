@@ -107,10 +107,10 @@ public class Object_detail extends AppCompatActivity {
 
 
                 if(myMapObjectsModel.get(i).getType().equals("CA")){
-                    type.setText("CARAMELLA");
+                    type.setText("CANDY");
                     b.setText("EAT");
                 }else{
-                    type.setText("MOSTRO");
+                    type.setText("MONSTER");
                 }
 
                 name.setText(myMapObjectsModel.get(i).getName());
@@ -218,9 +218,8 @@ public class Object_detail extends AppCompatActivity {
         RichiestaServerFighteat();
 
 
-        /*Intent backHomeIntent = new Intent(this, MainActivity.class);
-        startActivity(backHomeIntent);
-    */
+
+
 
 
     }
@@ -293,6 +292,9 @@ public class Object_detail extends AppCompatActivity {
         builder.setTitle("CONGRATULATIONS ");
         builder.setMessage("YOU HAVE REACHED: "+lp+"LP AND "+exp+ "xp");
         builder.show();
+
+        Intent backHomeIntent = new Intent(this, Map.class);
+        startActivity(backHomeIntent);
 
     }
 

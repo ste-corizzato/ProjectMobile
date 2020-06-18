@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
 
     private void getPlayerRequest() {
@@ -104,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("MainActivity","nome disp" +getDeviceName());
+
 
 
     }
@@ -318,10 +319,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //phone: Google Android SDK built for x86
-    //tablet:
-
-
 
 
 
@@ -343,39 +340,14 @@ public class MainActivity extends AppCompatActivity {
 
             getProfile();
             getPlayerRequest();
+
+
         }
 
             
 
         }
 
-    public String getDeviceName() {
-        String manufacturer = Build.MANUFACTURER;
-        String model = Build.MODEL;
-        if (model.toLowerCase().startsWith(manufacturer.toLowerCase())) {
-            return capitalize(model);
-
-        } else {
-            return capitalize(manufacturer) + " " + model;
-
-        }
-    }
-
-    String g=getDeviceName();
-
-
-
-        private String capitalize(String s) {
-            if (s == null || s.length() == 0) {
-                return "";
-            }
-            char first = s.charAt(0);
-            if (Character.isUpperCase(first)) {
-                return s;
-            } else {
-                return Character.toUpperCase(first) + s.substring(1);
-            }
-        }
 
 
 
