@@ -145,71 +145,9 @@ public class Object_detail extends AppCompatActivity {
     }
 
 
-    private void getImageObjectRequest(){
-        final ImageView img= findViewById(R.id.imageObj);
-
-        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
-        final String url2 = "https://ewserver.di.unimi.it/mobicomp/mostri/getimage.php";
-        Log.d("Map", "funziona richiesta immagine");
-
-        JSONObject jsonRequest = new JSONObject();
-        try {
-
-            jsonRequest.put("session_id", Model.getInstance().getSessionID());
-            jsonRequest.put("target_id", Integer.toString(id));
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-        JsonObjectRequest getMapRequest = new JsonObjectRequest(
-                url2,
-                jsonRequest,
-
-
-                new Response.Listener<JSONObject>() {
-
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        Log.d("Map", "Eseguito: " + response);
-                        getImgResponse(response);
-                        Bitmap bm = Model.getInstance().StringToBitMap(immagine);
-                        Log.d("Object_detail", ""+bm);
-                        img.setImageBitmap(bm);
 
 
 
-
-                    }
-
-
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("Map", "Error: " + error.toString());
-                    }
-                });
-
-
-        mRequestQueue.add(getMapRequest);
-
-    }
-
-    private void getImgResponse(JSONObject response) {
-
-        try {
-            immagine = response.getString("img");
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
 
@@ -293,7 +231,7 @@ public class Object_detail extends AppCompatActivity {
         builder.setMessage("YOU HAVE REACHED: "+lp+"LP AND "+exp+ "xp");
         builder.show();
 
-        Intent backHomeIntent = new Intent(this, Map.class);
+        Intent backHomeIntent = new Intent(this, MainActivity.class);
         startActivity(backHomeIntent);
 
     }
