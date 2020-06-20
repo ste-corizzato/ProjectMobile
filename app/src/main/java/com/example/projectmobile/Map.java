@@ -359,6 +359,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
+        
     }
 
 
