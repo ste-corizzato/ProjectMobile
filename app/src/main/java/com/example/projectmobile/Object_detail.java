@@ -38,6 +38,8 @@ import org.json.JSONObject;
 
 import java.text.CollationElementIterator;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Object_detail extends AppCompatActivity {
 
@@ -288,14 +290,29 @@ public class Object_detail extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("CONGRATULATIONS ");
-        builder.setMessage("YOU HAVE REACHED: "+lp+"LP AND "+exp+ "xp");
-        builder.show();
+        if (died.equals("false")) {
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("CONGRATULATIONS ");
+            builder.setMessage("YOU HAVE REACHED: "+lp+"LP AND "+exp+ "xp");
+            builder.show();
+        }else{
+            AlertDialog.Builder builder=new AlertDialog.Builder(this);
+            builder.setTitle("YOU ARE DIED");
+            builder.setMessage("YOU HAVE REACHED: "+lp+"LP AND "+exp+ "xp");
+            builder.show();
 
-        Intent backHomeIntent = new Intent(this, Map.class);
-        startActivity(backHomeIntent);
 
+        }
+
+        new Timer().schedule(new TimerTask(){
+            public void run() {
+                Object_detail.this.runOnUiThread(new Runnable() {
+                    public void run() {
+                        startActivity(new Intent(Object_detail.this, MainActivity.class));
+                    }
+                });
+            }
+        }, 2000);
     }
 
 

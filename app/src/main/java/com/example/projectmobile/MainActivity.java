@@ -183,10 +183,7 @@ public class MainActivity extends AppCompatActivity {
 
                 mRequestQueue.add(getProfileRequest);
 
-        if(Model.getInstance().getMapObjectList().size()==0){
-            chiamataServerOggettiMappa();
 
-        }
 
     }
     private void chiamataServerOggettiMappa(){
@@ -340,6 +337,7 @@ public class MainActivity extends AppCompatActivity {
 
             getProfile();
             getPlayerRequest();
+            chiamataServerOggettiMappa();
 
 
         }

@@ -187,11 +187,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
         symbolManager.setIconAllowOverlap(true);
         symbolManager.setIconTranslate(new Float[]{-4f,5f});
         symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
-        //chiamataServerOggetti();
-        /*if(Model.getInstance().getMapObjectList().size()==0){
-            chiamataServerOggetti();
 
-        }*/
 
             for(int i=0; i<myMapObjectsModel.size(); i++){
                 Log.d("Map", "eccoci");
