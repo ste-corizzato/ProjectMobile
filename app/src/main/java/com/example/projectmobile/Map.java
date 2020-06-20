@@ -187,7 +187,11 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
         symbolManager.setIconAllowOverlap(true);
         symbolManager.setIconTranslate(new Float[]{-4f,5f});
         symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
+        //chiamataServerOggetti();
+        /*if(Model.getInstance().getMapObjectList().size()==0){
+            chiamataServerOggetti();
 
+        }*/
 
             for(int i=0; i<myMapObjectsModel.size(); i++){
                 Log.d("Map", "eccoci");
@@ -310,6 +314,10 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
         super.onStart();
         mapView.onStart();
         Log.d("Map", "onstart");
+        if(this.mapboxMap != null && mapboxMap.getStyle() != null){
+            symbolManager.addClickListener(this);
+
+        }
         mapView.setVisibility(View.VISIBLE);
 
 
@@ -359,7 +367,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
-        
     }
 
 
