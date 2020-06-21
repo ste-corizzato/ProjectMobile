@@ -55,7 +55,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     public String imgString;
     Bitmap bm = null;
 
-
+//
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -112,15 +112,23 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 TextView tv = getActivity().findViewById(R.id.textName);
                 tv.setText(username_text);
 
+
                 ImageView image=getActivity().findViewById(R.id.imageView);
 
 
-                bm = StringToBitMap(imgString);
-                Model.getInstance().setImgUser(imgString);
+                if (imgString != null){
+                    bm = StringToBitMap(imgString);
+                    Model.getInstance().setImgUser(imgString);
+                }
+
 
                 if(bm==null) {
-
+                    if(Model.getInstance().getImgUser()== null){
                         image.setImageDrawable(getResources().getDrawable(R.drawable.knight_2));
+                    }else{
+                        image.setImageBitmap(StringToBitMap(Model.getInstance().getImgUser()));
+                    }
+
 
                 }else {
                     image.setImageBitmap(bm);   //MyPhoto is image control.
@@ -138,7 +146,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
                 break;
 
-                case R.id.button_change_img:
+            case R.id.button_change_img:
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (ActivityCompat.checkSelfPermission(getActivity(),Manifest.permission.READ_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_DENIED) {
@@ -206,50 +214,50 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
 
     public void modificaNome(){
-            mRequestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
-            final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/setprofile.php";
+        mRequestQueue= Volley.newRequestQueue(getActivity().getApplicationContext());
+        final String url= " https://ewserver.di.unimi.it/mobicomp/mostri/setprofile.php";
 
-            TextView tv = getView().findViewById(R.id.text_nome);
-            username_text = tv.getText().toString();
-
-
+        TextView tv = getView().findViewById(R.id.text_nome);
+        username_text = tv.getText().toString();
 
 
-            JSONObject jsonRequest = new JSONObject();
-            try {
 
-                jsonRequest.put("session_id",Model.getInstance().getSessionID());
-                jsonRequest.put("username", username_text);
 
-                if(imgString==null) {
-                    jsonRequest.put("img", Model.getInstance().getImgUser());
-                }else{
-                    jsonRequest.put("img", imgString);
-                    
-                }
+        JSONObject jsonRequest = new JSONObject();
+        try {
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+            jsonRequest.put("session_id",Model.getInstance().getSessionID());
+            jsonRequest.put("username", username_text);
+
+            if(imgString==null) {
+                jsonRequest.put("img", Model.getInstance().getImgUser());
+            }else{
+                jsonRequest.put("img", imgString);
+
             }
-            JsonObjectRequest getProfileRequest = new JsonObjectRequest(
-                    url,
-                    jsonRequest,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
 
-                            Model.getInstance().setUsername(username_text);
-                            Log.d("MainActivity", "Eseguito modifica: "+response);
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d("MainActivity", "Error: " + error.toString());
-                        }});
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest getProfileRequest = new JsonObjectRequest(
+                url,
+                jsonRequest,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Model.getInstance().setUsername(username_text);
+                        Log.d("MainActivity", "Eseguito modifica: "+response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("MainActivity", "Error: " + error.toString());
+                    }});
 
 
-            mRequestQueue.add(getProfileRequest);
+        mRequestQueue.add(getProfileRequest);
 
 
 
@@ -279,11 +287,5 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     }
 
 }
-
-
-
-
-
-
 
 
