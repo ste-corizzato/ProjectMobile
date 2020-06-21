@@ -181,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
                     }});
 
 
-                mRequestQueue.add(getProfileRequest);
+        mRequestQueue.add(getProfileRequest);
 
 
 
@@ -267,26 +267,26 @@ public class MainActivity extends AppCompatActivity {
             img.setImageBitmap(bm);   //MyPhoto is image control.
         }
 
-            try {
-                nometv.setText(response.getString("username"));
-                Model.getInstance().setUsername(response.getString("username"));
-                nome = nometv.getText().toString();
+        try {
+            nometv.setText(response.getString("username"));
+            Model.getInstance().setUsername(response.getString("username"));
+            nome = nometv.getText().toString();
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                lp.setText(response.getString("lp"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            try {
-                exp.setText(response.getString("xp"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+        try {
+            lp.setText(response.getString("lp"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            exp.setText(response.getString("xp"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 
 
@@ -325,7 +325,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Log.d("MainActivity", "onResume");
         SharedPreferences datiSalvati =
-            getSharedPreferences("salvaDati", 0);
+                getSharedPreferences("salvaDati", 0);
         myModel.setSessionID(datiSalvati.getString("session_id", null));
 
         if (myModel.getSessionID()==null){
@@ -344,16 +344,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        }
-
-
-
-
-
-
-
-
-
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+}

@@ -187,10 +187,13 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
         symbolManager.setIconAllowOverlap(true);
         symbolManager.setIconTranslate(new Float[]{-4f,5f});
         symbolManager.setIconRotationAlignment(ICON_ROTATION_ALIGNMENT_VIEWPORT);
+        //chiamataServerOggetti();
+        /*if(Model.getInstance().getMapObjectList().size()==0){
+            chiamataServerOggetti();
 
+        }*/
 
             for(int i=0; i<myMapObjectsModel.size(); i++){
-                Log.d("Map", "eccoci");
                 onNewMapObjectsAdded(myMapObjectsModel.get(i));
             }
 
@@ -310,6 +313,10 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
         super.onStart();
         mapView.onStart();
         Log.d("Map", "onstart");
+        if(this.mapboxMap != null && mapboxMap.getStyle() != null){
+            symbolManager.addClickListener(this);
+
+        }
         mapView.setVisibility(View.VISIBLE);
 
 
@@ -359,7 +366,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
     public void onLowMemory() {
         super.onLowMemory();
         mapView.onLowMemory();
-
     }
 
 
@@ -389,13 +395,15 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
 
 
     public void onClickButton(View view) {
-        Model.getInstance().setLatUser(currentLocation.getLatitude());
-        Model.getInstance().setLonUser(currentLocation.getLongitude());
-        CameraPosition position = new CameraPosition.Builder()
-                .target(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
-                .zoom(16.5)
-                .build();
-        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
+        if(Model.getInstance().getLatUser()!=null && Model.getInstance().getLonUser()!=null) {
+            Model.getInstance().setLatUser(currentLocation.getLatitude());
+            Model.getInstance().setLonUser(currentLocation.getLongitude());
+            CameraPosition position = new CameraPosition.Builder()
+                    .target(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
+                    .zoom(16.5)
+                    .build();
+            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
+        }
     }
 
 
