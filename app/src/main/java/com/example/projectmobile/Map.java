@@ -217,6 +217,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
     @Override
     public void onSuccess(LocationEngineResult result) {
         currentLocation = result.getLastLocation();
+
         Model.getInstance().setLatUser(currentLocation.getLatitude());
         Model.getInstance().setLonUser(currentLocation.getLongitude());
         Log.d("Map", "onSuccess: "+currentLocation);

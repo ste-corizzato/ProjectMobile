@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 public class Leaderboards extends AppCompatActivity {
 
-    public RequestQueue mRequestQueue = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

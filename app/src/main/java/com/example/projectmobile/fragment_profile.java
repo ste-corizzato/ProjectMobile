@@ -114,12 +114,13 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
                 ImageView image=getActivity().findViewById(R.id.imageView);
 
-                Bitmap bm = null;
+
                 bm = StringToBitMap(imgString);
                 Model.getInstance().setImgUser(imgString);
 
                 if(bm==null) {
-                    image.setImageDrawable(getResources().getDrawable(R.drawable.knight_2));
+
+                        image.setImageDrawable(getResources().getDrawable(R.drawable.knight_2));
 
                 }else {
                     image.setImageBitmap(bm);   //MyPhoto is image control.
@@ -134,7 +135,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 transaction2.addToBackStack(null);
 
                 transaction2.commit();
-                Log.d("MyMainActivity", "indietro funziona");
+
                 break;
 
                 case R.id.button_change_img:
@@ -219,10 +220,12 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
                 jsonRequest.put("session_id",Model.getInstance().getSessionID());
                 jsonRequest.put("username", username_text);
+
                 if(imgString==null) {
-                    jsonRequest.put("img", img);
+                    jsonRequest.put("img", Model.getInstance().getImgUser());
                 }else{
                     jsonRequest.put("img", imgString);
+                    
                 }
 
             } catch (JSONException e) {
@@ -236,7 +239,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                         public void onResponse(JSONObject response) {
 
                             Model.getInstance().setUsername(username_text);
-                            Log.d("MainActivity", "Eseguito: "+response);
+                            Log.d("MainActivity", "Eseguito modifica: "+response);
                         }
                     },
                     new Response.ErrorListener() {

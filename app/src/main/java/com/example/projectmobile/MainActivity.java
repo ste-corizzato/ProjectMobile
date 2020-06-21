@@ -253,9 +253,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             //bm = StringToBitMap(response.getString("img"));
 
-            Model.getInstance().StringToBitMap(response.getString("img"));
-            if(bm==null){
-            }
+            bm=Model.getInstance().StringToBitMap(response.getString("img"));
+           
             Log.d("MainActivity", response.getString("img"));
         } catch (JSONException e) {
             e.printStackTrace();
