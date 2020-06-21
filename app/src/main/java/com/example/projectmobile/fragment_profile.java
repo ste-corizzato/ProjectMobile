@@ -162,6 +162,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         }
 
     }
+    //
 
     private void pickImageFromGallery() {
         //intent to pick image
