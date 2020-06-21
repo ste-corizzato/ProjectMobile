@@ -301,6 +301,8 @@ public class Object_detail extends AppCompatActivity {
             builder.setMessage("YOU HAVE REACHED: "+lp+"LP AND "+exp+ "xp");
             builder.show();
 
+            
+
 
         }
 
