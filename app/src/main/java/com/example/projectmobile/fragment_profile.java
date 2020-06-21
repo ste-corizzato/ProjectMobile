@@ -112,15 +112,22 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 TextView tv = getActivity().findViewById(R.id.textName);
                 tv.setText(username_text);
 
+
                 ImageView image=getActivity().findViewById(R.id.imageView);
 
+                if (imgString != null){
+                    bm = StringToBitMap(imgString);
+                    Model.getInstance().setImgUser(imgString);
+                }
 
-                bm = StringToBitMap(imgString);
-                Model.getInstance().setImgUser(imgString);
 
                 if(bm==null) {
-
+                    if(Model.getInstance().getImgUser()== null){
                         image.setImageDrawable(getResources().getDrawable(R.drawable.knight_2));
+                    }else{
+                        image.setImageBitmap(StringToBitMap(Model.getInstance().getImgUser()));
+                    }
+
 
                 }else {
                     image.setImageBitmap(bm);   //MyPhoto is image control.
