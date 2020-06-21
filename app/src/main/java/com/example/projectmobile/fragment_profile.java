@@ -115,6 +115,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
                 ImageView image=getActivity().findViewById(R.id.imageView);
 
+                
                 if (imgString != null){
                     bm = StringToBitMap(imgString);
                     Model.getInstance().setImgUser(imgString);
