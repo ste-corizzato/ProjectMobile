@@ -336,7 +336,9 @@ public class MainActivity extends AppCompatActivity {
 
             getProfile();
             getPlayerRequest();
-            chiamataServerOggettiMappa();
+
+                chiamataServerOggettiMappa();
+
 
 
         }

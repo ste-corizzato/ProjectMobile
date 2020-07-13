@@ -133,7 +133,7 @@ public class Object_detail extends AppCompatActivity {
 
                 Log.d("Object_detail", ""+distanceInMeters);
 
-                if(distanceInMeters>50){
+                if(distanceInMeters>50000){
                     Button btn = (Button) findViewById(R.id.fight);
                     btn.setEnabled(false);
                 }
@@ -200,6 +200,9 @@ public class Object_detail extends AppCompatActivity {
     //
     public void getProfileResponse(JSONObject response)  {
 
+        chiamataServerOggettiMappa();
+
+
         try {
             died=response.getString("died");
             Log.d("Object_detail", ""+died);
@@ -238,13 +241,59 @@ public class Object_detail extends AppCompatActivity {
             public void run() {
                 Object_detail.this.runOnUiThread(new Runnable() {
                     public void run() {
-                        startActivity(new Intent(Object_detail.this, MainActivity.class));
+                        startActivity(new Intent(Object_detail.this, Map.class));
                     }
                 });
             }
-        }, 2000);
+        }, 3000);
     }
 
+
+    private void chiamataServerOggettiMappa(){
+        mRequestQueue = Volley.newRequestQueue(getApplicationContext());
+        final String url = "https://ewserver.di.unimi.it/mobicomp/mostri/getmap.php";
+
+
+        JSONObject jsonRequest = new JSONObject();
+        try {
+            jsonRequest.put("session_id", Model.getInstance().getSessionID());
+            Log.d("Map", "Eseguito: "+Model.getInstance().getSessionID());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest getMapRequest = new JsonObjectRequest(
+                url,
+                jsonRequest,
+
+
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                        Model.getInstance().MapObject(response);
+                        Log.d("Map", "Eseguito: " + response);
+
+                    }
+
+
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Map", "Error: " + error.toString());
+                    }
+                });
+
+
+        mRequestQueue.add(getMapRequest);
+
+
+
+    }
 
 
 

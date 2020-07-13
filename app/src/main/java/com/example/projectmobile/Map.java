@@ -3,6 +3,7 @@ package com.example.projectmobile;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -135,11 +136,21 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
         mapboxMap.setStyle(Style.TRAFFIC_NIGHT, this);
 
 
+
+
+
     }
 
     public void onStyleLoaded(@NonNull Style style) {
+
         enableLocationComponent(style);
         initLocationEngine();
+        CameraPosition position = new CameraPosition.Builder()
+                .target(new LatLng(45.4773, 9.1815))
+                .zoom(10)
+                .tilt(20)
+                .build();
+        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 10);
 
         style.addImage(MONSTER_MARKER_IMAGE_ID,getDrawable(R.drawable.dragonfix4));
         style.addImage(CANDY_MARKER_IMAGE_ID,getDrawable(R.drawable.candyfix4));
@@ -154,6 +165,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
             for(int i=0; i<myMapObjectsModel.size(); i++){
                 onNewMapObjectsAdded(myMapObjectsModel.get(i));
             }
+
+
 
 
 
@@ -280,6 +293,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
 
 
 
+
+
     }
 
     @Override
@@ -362,6 +377,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
                     .zoom(16.5)
                     .build();
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
+
         }
     }
 
