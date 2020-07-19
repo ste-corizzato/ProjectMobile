@@ -145,11 +145,13 @@ public class Object_detail extends AppCompatActivity {
 
 
     }
+    //BELLA PER NICO
 
 
 
 
     public void onClick(View view){
+        Log.d("prova", "va il pulsante");
         RichiestaServerFighteat();
 
     }
