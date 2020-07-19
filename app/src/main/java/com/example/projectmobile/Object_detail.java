@@ -133,7 +133,7 @@ public class Object_detail extends AppCompatActivity {
 
                 Log.d("Object_detail", ""+distanceInMeters);
 
-                if(distanceInMeters>50000){
+                if(distanceInMeters>500000){
                     Button btn = (Button) findViewById(R.id.fight);
                     btn.setEnabled(false);
                 }
@@ -245,7 +245,7 @@ public class Object_detail extends AppCompatActivity {
                     }
                 });
             }
-        }, 3000);
+        }, 2000);
     }
 
 

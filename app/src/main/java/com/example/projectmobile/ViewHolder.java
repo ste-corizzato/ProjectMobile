@@ -26,7 +26,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClick
     public ViewHolder(View itemView, Activity parentActivity) {
         super(itemView);
         this.parentActivity = parentActivity;
-        itemView.setOnClickListener( this);
+        itemView.setOnClickListener(this);
         username = itemView.findViewById(R.id.username);
         xp = itemView.findViewById(R.id.xp);
         lp = itemView.findViewById(R.id.lp);
@@ -55,6 +55,8 @@ public class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClick
 
     public void onClick(View v) {
         Log.d("Giocatoreselezionato", " "+player);
+
+
 
     }
 
