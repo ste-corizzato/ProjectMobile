@@ -145,12 +145,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
 
         enableLocationComponent(style);
         initLocationEngine();
-        CameraPosition position = new CameraPosition.Builder()
-                .target(new LatLng(45.4773, 9.1815))
-                .zoom(10)
-                .tilt(20)
-                .build();
-        mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 10);
+
 
         style.addImage(MONSTER_MARKER_IMAGE_ID,getDrawable(R.drawable.dragonfix4));
         style.addImage(CANDY_MARKER_IMAGE_ID,getDrawable(R.drawable.candyfix4));
@@ -376,9 +371,10 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback,  Style
                     .target(new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude()))
                     .zoom(16.5)
                     .build();
-            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
+            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);}
 
-        }
+
+
     }
 
 
